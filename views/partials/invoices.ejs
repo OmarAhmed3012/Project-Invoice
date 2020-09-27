@@ -1,6 +1,4 @@
-
-
-    <div class="container p-3">
+  <div class="container p-3">
 
         <button type="button" class="btn btn-success m-3 p-2"><a href="/addinvoice" class="text-light text-decoration-none text-reset">Add Invoice</a></button>
 
@@ -26,7 +24,7 @@
                 <td>20/10/2019</td>
                 <td><button type="button" class="btn btn-secondary">Show</button></td>
                 <td><button type="button" class="btn btn-primary">Edit</button></td>
-                <td><button type="button" class="btn btn-danger">Distroy</button></td>
+                <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">Distroy</button></td>
               </tr>
               <tr>
                 <th scope="row">2</th>
@@ -36,7 +34,7 @@
                 <td>20/10/2019</td>
                 <td><button type="button" class="btn btn-secondary">Show</button></td>
                 <td><button type="button" class="btn btn-primary">Edit</button></td>
-                <td><button type="button" class="btn btn-danger">Distroy</button></td>
+                <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">Distroy</button></td>
               </tr>
               <tr>
                 <th scope="row">3</th>
@@ -46,7 +44,7 @@
                 <td>20/10/2019</td>
                 <td><button type="button" class="btn btn-secondary">Show</button></td>
                 <td><button type="button" class="btn btn-primary">Edit</button></td>
-                <td><button type="button" class="btn btn-danger">Distroy</button></td>
+                <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">Distroy</button></td>
               </tr>
               <tr>
                 <th scope="row">4</th>
@@ -56,7 +54,7 @@
                 <td>20/10/2019</td>
                 <td><button type="button" class="btn btn-secondary">Show</button></td>
                 <td><button type="button" class="btn btn-primary">Edit</button></td>
-                <td><button type="button" class="btn btn-danger">Distroy</button></td>
+                <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">Distroy</button></td>
               </tr>
               <tr>
                 <th scope="row">5</th>
@@ -66,8 +64,21 @@
                 <td>20/10/2019</td>
                 <td><button type="button" class="btn btn-secondary">Show</button></td>
                 <td><button type="button" class="btn btn-primary">Edit</button></td>
-                <td><button type="button" class="btn btn-danger">Distroy</button></td>
+                <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">Distroy</button></td>
               </tr>
             </tbody>
           </table>
     </div>
+
+
+    <script>
+        const deleteRow= (btn)=>{
+          if (confirm("are you sure to delete invoice")) {
+            const tr = btn.parentNode.parentNode
+            const tbody = tr.parentNode
+            console.log(tbody);
+            tr.style.display ='none'
+            
+            } 
+        }
+    </script>
