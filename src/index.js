@@ -25,6 +25,10 @@ app.get('/admin', (req, res) => {
     res.render('admin');
 })
 
+app.get('/addinvoice', (req, res) => {
+    res.render('addinvoice');
+})
+
 
 app.listen(port, () => {
     console.log('server running');
