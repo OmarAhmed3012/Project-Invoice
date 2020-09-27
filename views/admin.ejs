@@ -4,19 +4,19 @@
         <div style="margin: auto;  width: 40%; padding: 10px;">
             <h1>admin panal</h1>
             <div style="width: 50%; margin: auto; margin-bottom: 10px;">
-                    <button type="button" class="btn btn-primary" >Add Product</button>
-                    <button type="button" class="btn btn-outline-primary">Add quantity</button>
+                    <button type="button" id="btn-product" class="btn btn-primary" onclick="removeStockCard()">Add Product</button>
+                    <button type="button" id="btn-quantity" class="btn btn-outline-primary" onclick="removeProductCard()">Add quantity</button>
             </div>
-            <div class="card">
+            <div class="card" id="stock" style="display:none;">
                     <h5 class="card-header">Stock</h5>
                     <div style="padding: 10px;">
                             <form class="was-validated">
                                 <div class="form-group">
                                     <label>Product Name</label>
                                     <select class="form-control">
-                                            <option>Default select</option>
-                                            <option>1</option>
-                                            <option>2</option>
+                                            <option>item1</option>
+                                            <option>item2</option>
+                                            <option>item3</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -27,32 +27,32 @@
                             </form>
                     </div>
             </div>
-            <div class="card">
+            <div class="card" id="product">
                     <h5 class="card-header">New proudect</h5>
                     <div class="card-body">
-                    <form>
+                    <form action="http://localhost:3000/product" method="GET">
                         <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">Product</label>
+                            <label for="name" class="col-sm-2 col-form-label">Product</label>
                             <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="Name">
+                            <input type="text" class="form-control" name="name" placeholder="Name">
                             </div>
                         </div>
                             <div class="form-group row">
                                 <label for="inputPassword3" class="col-sm-2 col-form-label">Serial</label>
                                 <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="Number">
+                                <input type="text" class="form-control" name="serialNumber" placeholder="Number">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label">Quantity</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control">
+                                    <input type="number" name="quantity" min="0" class="form-control" placeholder="Quantity">
                                 </div>
-                                </div>
-                                <div class="form-group row">
+                            </div>
+                            <div class="form-group row">
                                 <label for="inputPassword3" class="col-sm-2 col-form-label">Price</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" >
+                                    <input type="number" name="price" min="1" class="form-control" placeholder="price">
                                 </div>
                             </div>
                             
@@ -64,5 +64,30 @@
             </div>
             
         </div>
+        <script>
+                const removeProductCard=()=>{
+                    console.log(12348);
+                    
+                    const stockCard = document.getElementById('stock')
+                    const productCard = document.getElementById('product')
+                    const btn = document.getElementById('btn-quantity')
+                    btn.className = 'btn btn-primary'
+                    const btnProduct = document.getElementById('btn-product')
+                    btnProduct.className = 'btn btn-outline-primary'
+                    productCard.style.display = 'none'
+                    stockCard.style.display = 'block'
+                }
+                const removeStockCard=()=>{
+                    console.log(12348);
+                    const stockCard = document.getElementById('stock')
+                    const productCard = document.getElementById('product')
+                    const btnProduct = document.getElementById('btn-product')
+                    const btn = document.getElementById('btn-quantity')
+                    btn.className = 'btn btn-outline-primary'
+                    btnProduct.className = 'btn btn-primary'
+                    productCard.style.display = 'block'
+                    stockCard.style.display = 'none'
+                }
+            </script>
 </body>
 </html>
