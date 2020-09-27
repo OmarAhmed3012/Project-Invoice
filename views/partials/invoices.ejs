@@ -22,47 +22,48 @@
                 <td>Otto</td>
                 <td>100 E.G.P</td>
                 <td>20/10/2019</td>
-                <td><button type="button" class="btn btn-secondary">Show</button></td>
+                <td>
+                  <button type="button" onclick="show(this)" class="btn btn-secondary">Show</button></td>
                 <td><button type="button" class="btn btn-primary">Edit</button></td>
                 <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">Distroy</button></td>
               </tr>
               <tr>
                 <th scope="row">2</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>100 E.G.P</td>
-                <td>20/10/2019</td>
-                <td><button type="button" class="btn btn-secondary">Show</button></td>
+                <td>aaaaa</td>
+                <td>bbbbb</td>
+                <td>150 E.G.P</td>
+                <td>11/11/2011</td>
+                <td><button type="button" onclick="show(this)" class="btn btn-secondary">Show</button></td>
                 <td><button type="button" class="btn btn-primary">Edit</button></td>
                 <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">Distroy</button></td>
               </tr>
               <tr>
                 <th scope="row">3</th>
-                <td>Mark</td>
+                <td>google</td>
                 <td>Otto</td>
-                <td>100 E.G.P</td>
-                <td>20/10/2019</td>
-                <td><button type="button" class="btn btn-secondary">Show</button></td>
+                <td>400 E.G.P</td>
+                <td>25/5/2020</td>
+                <td><button type="button" onclick="show(this)" class="btn btn-secondary">Show</button></td>
                 <td><button type="button" class="btn btn-primary">Edit</button></td>
                 <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">Distroy</button></td>
               </tr>
               <tr>
                 <th scope="row">4</th>
-                <td>Mark</td>
+                <td>facebook</td>
                 <td>Otto</td>
-                <td>100 E.G.P</td>
-                <td>20/10/2019</td>
-                <td><button type="button" class="btn btn-secondary">Show</button></td>
+                <td>500 E.G.P</td>
+                <td>20/9/2020</td>
+                <td><button type="button" onclick="show(this)" class="btn btn-secondary">Show</button></td>
                 <td><button type="button" class="btn btn-primary">Edit</button></td>
                 <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">Distroy</button></td>
               </tr>
               <tr>
                 <th scope="row">5</th>
-                <td>Mark</td>
+                <td>Amazon</td>
                 <td>Otto</td>
-                <td>100 E.G.P</td>
-                <td>20/10/2019</td>
-                <td><button type="button" class="btn btn-secondary">Show</button></td>
+                <td>1000 E.G.P</td>
+                <td>20/10/2009</td>
+                <td><button type="button" onclick="show(this)" class="btn btn-secondary">Show</button></td>
                 <td><button type="button" class="btn btn-primary">Edit</button></td>
                 <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">Distroy</button></td>
               </tr>
@@ -72,6 +73,16 @@
 
 
     <script>
+        const show = (btn)=>{
+          const tr =btn.parentNode.parentNode
+          const Company=tr.children[1].textContent
+          const Contragent = tr.children[2].textContent
+          const Amount = tr.children[3].textContent
+          const d = tr.children[4].textContent
+          console.log(Company);
+          
+          window.location.href = `/show?company=${Company}&contragent=${Contragent}&amount=${Amount}&data=${d}`
+        }
         const deleteRow= (btn)=>{
           if (confirm("are you sure to delete invoice")) {
             const tr = btn.parentNode.parentNode

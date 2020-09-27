@@ -29,6 +29,15 @@ app.get('/addinvoice', (req, res) => {
     res.render('addinvoice');
 })
 
+app.get('/show',(req,res)=>{
+    console.log(req.query.company);
+    res.render('show',{
+        company:req.query.company,
+        contragent: req.query.contragent,
+        amount : req.query.amount,
+        data:req.query.data
+    })
+})
 
 app.listen(port, () => {
     console.log('server running');
