@@ -15,10 +15,8 @@ app.set('view engine', 'ejs');
 // app.use(express.static(path.join(__dirname, '/views')));
 app.set('views',path.join(__dirname,'../views'))
 
-const options = ['1', '2', '3'];
-
 app.get('', (req, res) => {
-    res.render('index.ejs', {options: options});
+    res.render('index.ejs');
 });
 
 app.get('/admin', (req, res) => {
@@ -30,7 +28,7 @@ app.get('/addinvoice', (req, res) => {
 })
 
 app.get('/show',(req,res)=>{
-    console.log(req.query.company);
+    
     res.render('show',{
         company:req.query.company,
         contragent: req.query.contragent,
