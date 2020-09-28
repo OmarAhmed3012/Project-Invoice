@@ -104,7 +104,7 @@ textarea {
               </thead>
           
               <tbody>
-                <tr class="item-row">
+                <tr class="item-row" id="row">
                   <td>
                       <select name="pid[]" class="form-control item_name form-control-lg" value="Item #1" required>
                           
@@ -164,9 +164,9 @@ textarea {
               
                   </td>
     
-                  <td><input class="form-control cost" value="650.00" /></td>
-                  <td><input class="form-control qty" value="1" /></td>
-                  <td class="price_td"><span class="price">650.00</span><span class="subtotal_currency"></span></td>
+                  <td><input class="form-control cost" id="price" onchange="findtotal(this)" value="650.00" /></td>
+                  <td><input class="form-control qty" id="quantity" onchange="findtotal(this)" value="1" /></td>
+                  <td class="price_td"><span class="price" id="totalRow">650.00</span><span class="subtotal_currency"></span></td>
                   <td class="delete_td"><a class="delete" onclick="deleteRow(this)" title="Remove row"><span class="fas fa-window-close"></span></a></td>
                 </tr>
               
@@ -228,9 +228,9 @@ textarea {
         
                 
               </td>
-                  <td><input class="form-control cost" value="75.00" /></td>
-                  <td><input class="form-control qty" value="3" /></td>
-                  <td class="price_td"><span class="price">225.00</span><span class="subtotal_currency"></span></td>
+                  <td><input class="form-control cost" id="price" onchange="findtotal(this)" value="75.00" /></td>
+                  <td><input class="form-control qty" id="quantity" onchange="findtotal(this)" value="3" /></td>
+                  <td class="price_td"><span class="price" id="totalRow">225.00</span><span class="subtotal_currency"></span></td>
                   <td class="delete_td"><a class="delete" onclick="deleteRow(this)" title="Remove row"><span class="fas fa-window-close"></span></a></td>
                 </tr>
               
@@ -250,11 +250,11 @@ textarea {
               <table class="table table-hover" id="totals">
                 <tr>
                   <th style="width:50%">Subtotal:</th>
-                  <td><span id="subtotal">875.00</span><span class="subtotal_currency"></span></td>
+                  <td><span id="subtotal" >875.00</span><span class="subtotal_currency"></span></td>
                 </tr>
                 <tr>
                   <th>Tax:</th>
-                  <td><input id="9" class="form-control" value="0.00" /></td>
+                  <td><input id="tax" onchange="totalInvoice()" class="form-control" value="0.00" /></td>
                 </tr>
                 <tr>
                   <th>Total:</th>
@@ -372,12 +372,44 @@ textarea {
               
                   </td>
     
-                  <td><input class="form-control cost" value="650.00" /></td>
-                  <td><input class="form-control qty" value="1" /></td>
-                  <td class="price_td"><span class="price">650.00</span><span class="subtotal_currency"></span></td>
+                  <td><input class="form-control cost" id="price" onchange="findtotal(this)" value="650.00" /></td>
+                  <td><input class="form-control qty" id="quantity" onchange="findtotal(this)" value="1" /></td>
+                  <td class="price_td"><span class="price" id="totalRow">650.00</span><span class="subtotal_currency"></span></td>
                   <td class="delete_td"><a class="delete" onclick="deleteRow(this)" title="Remove row"><span class="fas fa-window-close"></span></a></td>
                 </tr>`;
 
   document.getElementById('items').appendChild(div);
   }
+
+  
+  const findtotal = (input)=>{
+    const td = input.parentNode.parentNode
+    console.log(td.querySelector('#price'));
+    const price = td.querySelector('#price')
+    const quantity = td.querySelector('#quantity')
+    const totalRow = td.querySelector('#totalRow')
+    const clc =Number(price.value)*Number(quantity.value)
+    totalRow.textContent = clc
+    console.log(clc);
+    let sum = 0 
+    allTotalRow =document.querySelectorAll('#totalRow')
+    allTotalRow.forEach(element => {
+      console.log(element.textContent);
+      sum= sum + Number(element.textContent)
+      console.log(sum);
+    });
+    const subTotal = document.getElementById('subtotal')  
+    subTotal.textContent = sum
+    const tax = document.getElementById('tax')
+    const total_invoice = document.getElementById('invoice_total')
+    total_invoice.textContent = sum - Number(tax.value)
+    
+  }
+
+ const totalInvoice=()=>{
+    const subTotal = document.getElementById('subtotal')  
+    const tax = document.getElementById('tax')
+    const total_invoice = document.getElementById('invoice_total')
+    total_invoice.textContent = Number(subTotal.textContent) - Number(tax.value)
+ } 
 </script>
