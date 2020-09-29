@@ -22,11 +22,15 @@ app.get('', (req, res) => {
 
 app.get('/admin', (req, res) => {
     res.render('admin');
-})
+});
+
+app.get('/stock', (req, res) => {
+    res.render('stock');
+});
 
 app.get('/addinvoice', (req, res) => {
     res.render('addinvoice');
-})
+});
 
 app.get('/show',(req,res)=>{
     
