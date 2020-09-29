@@ -28,6 +28,10 @@ app.get('/stock', (req, res) => {
     res.render('stock');
 });
 
+app.get('/editinvoice', (req, res) => {
+    res.render('editinvoice');
+});
+
 app.get('/addinvoice', (req, res) => {
     res.render('addinvoice');
 });
