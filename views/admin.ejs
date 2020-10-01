@@ -23,4 +23,72 @@
                     productCard.style.display = 'block'
                     stockCard.style.display = 'none'
                 }
-            </script>
+                const addproduct = document.getElementById('addProduct')
+                addproduct.addEventListener("submit",(e)=>{
+                    document.getElementById('alert-error').style.display = 'none'
+                    document.getElementById('alert').style.display = 'none'
+                    e.preventDefault()
+                    const data = {
+                        name :e.target.elements.name.value,
+                        price:e.target.elements.price.value,
+                        quantity:e.target.elements.quantity.value,
+                        serialNumber:e.target.elements.serialNumber.value
+                    }
+                    const options = {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                        }
+                    }
+                    fetch('/product', options)
+                    .then(res => {
+                        if(res.status === 400){
+                            return document.getElementById('alert-error').style.display = 'block'
+                        }else{
+                        res.json()
+                        console.log(res)
+                        e.target.elements.name.value = ''
+                        e.target.elements.price.value=''
+                        e.target.elements.quantity.value=''
+                        e.target.elements.serialNumber.value = ''
+                        document.getElementById('alert').style.display = 'block'
+                        }
+                    })
+                    .catch(err =>{
+                        document.getElementById('alert-error').style.display = 'block'
+                        console.error(err)}
+                    );})
+                    const stock =document.getElementById('addStock')
+                    stock.addEventListener('submit',(e)=>{
+                        console.log(456);
+                        e.preventDefault()
+                        const _id = stock.querySelector('select').selectedOptions[0].id
+                        const data = {
+                            quantity:Number(e.target.elements.quantity.value),
+                            _id
+                        }
+                        const option = {
+                            body:JSON.stringify(data),
+                            method:'POST',
+                            headers:{
+                                'Content-Type':'application/json'
+                            }
+                        }
+                        fetch('/quantity',option).then(res=>{
+                            if(res.status ===400){
+                                return console.log('Error occur');
+                            }else{
+                                res.json().then(res=>{
+                                    console.log(res);
+                                    e.target.elements.quantity.value = ''
+                                    alert('quantity added')
+                                })
+
+                            }
+                        }).catch(err=>{
+                            return document.getElementById('alert-error').style.display = 'block'
+                        })
+                    })
+
+</script>
