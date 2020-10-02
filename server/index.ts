@@ -7,7 +7,7 @@ import {productModel} from './model/product'
 
 const app = express();
 app.use(express.json())
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 app.use(expressLayouts)
 app.set('view engine', 'ejs');
 app.use(productRouter)
@@ -26,8 +26,9 @@ app.get('/admin', async(req, res) => {
     
     res.render('admin',{products});
 })
-app.get('/addinvoice', (req, res) => {
-    res.render('addinvoice');
+app.get('/addinvoice', async(req, res) => {
+    const products = await productModel.find({})
+    res.render('addinvoice',{products});
 })
 
 app.get('/show',(req,res)=>{

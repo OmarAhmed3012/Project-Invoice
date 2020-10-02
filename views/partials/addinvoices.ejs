@@ -108,14 +108,9 @@ textarea {
                   <td>
                       <select name="pid[]" id="product" onchange="changeSerial(this)" class="form-control item_name form-control-lg" value="Item #1" required>
                           
-                          <option>Cable tube stripper 45-163</option>
-                          <option>DEVISER Optical power meter AE270</option>
-                          <option>DEVISER Optical light source LS310A</option>
-                          <option>ELOIK Splicing machine ALK-88A</option>
-                          <option>ELOIK Splicing machine ALK-A3</option>
-                          <option>Manual Microscope 400x magnification</option>
-                          <option>Tri-hole stripper</option>
-                          
+                        <% for(product of products){%>
+                          <option><%=product.name%></option>
+                          <%}%>
                       </select>
                       
                       
@@ -123,48 +118,14 @@ textarea {
     
                   <td>
                       <select name="pid[]" disabled id="serial" class="form-control item_desc form-control-lg" value="Description" required>
-                      <option>921</option>
-                      <option>23306</option>
-                      <option>23307</option>
-                      <option>23309</option>
-                      <option>23310</option>
-                      <option>23311</option>
-                      <option>23312</option>
-                      <option>23313</option>
-                      <option>23314</option>
-                      <option>23317</option>
-                      <option>23318</option>
-                      <option>23319</option>
-                      <option>23320</option>
-                      <option>23321</option>
-    
-                      <option>1001670403</option>
-                      <option>1001780403</option>
-                      <option>1001870403</option>
-                      <option>1001880403</option>
-                      <option>1001890403</option>
-                      <option>1001900403</option>
-                      <option>1001910403</option>
-                      <option>1001920403</option>
-                      <option>1001940403</option>
-    
-                      <option>1001883250</option>
-                      <option>1001903250</option>
-                      <option>1001913250</option>
-                      <option>1001953250</option>
-                      <option>1002003250</option>
-                      <option>1002063250</option>
-                      <option>1002073250</option>
-                      <option>1002093250</option>
-                      <option>1002073250</option>
-                      <option>1002093250</option>
-                      <option>1002133250</option>
-    
+                        <% for(product of products){%>
+                        <option><%= product.serialNumber %> </option>
+                        <%}%>
                       </select>
-              
+                     
                   </td>
     
-                  <td><input class="form-control cost" disabled id="price" onchange="findtotal(this)" value="650.00" /></td>
+                  <td><input class="form-control cost" disabled id="price" onchange="findtotal(this)" value=<%=products[0].price%> /></td>
                   <td><input class="form-control qty" id="quantity" onchange="findtotal(this)" value="1" /></td>
                   <td class="price_td"><span class="price" id="totalRow">650.00</span><span class="subtotal_currency"></span></td>
                   <td class="delete_td"><a class="delete" onclick="deleteRow(this)" title="Remove row"><span class="fas fa-window-close"></span></a></td>
@@ -172,57 +133,19 @@ textarea {
               
                 <tr class="item-row" id="row">
                 <td>
-                <select name="pid[]" id="product" onchange="changeSerial(this)" class="form-control item_name form-control-lg" value="Item #2" required>
-                    
-                    <option>Cable tube stripper 45-163</option>
-                    <option>DEVISER Optical power meter AE270</option>
-                    <option>DEVISER Optical light source LS310A</option>
-                    <option>ELOIK Splicing machine ALK-88A</option>
-                    <option>ELOIK Splicing machine ALK-A3</option>
-                    <option>Manual Microscope 400x magnification</option>
-                    <option>Tri-hole stripper</option>
+                <select name="pid[]" id="product" onchange="changeSerial(this)" class="form-control item_name form-control-lg" value="Item #2" required>                    
+                  <% for(product of products){%>
+                    <option><%=product.name%></option>
+                    <%}%>
                     
                 </select>
             </td>
     
             <td>
                 <select name="pid[]" disabled id="serial" class="form-control item_desc form-control-lg" value="Description" required>
-                <option>921</option>
-                <option>23306</option>
-                <option>23307</option>
-                <option>23309</option>
-                <option>23310</option>
-                <option>23311</option>
-                <option>23312</option>
-                <option>23313</option>
-                <option>23314</option>
-                <option>23317</option>
-                <option>23318</option>
-                <option>23319</option>
-                <option>23320</option>
-                <option>23321</option>
-    
-                <option>1001670403</option>
-                <option>1001780403</option>
-                <option>1001870403</option>
-                <option>1001880403</option>
-                <option>1001890403</option>
-                <option>1001900403</option>
-                <option>1001910403</option>
-                <option>1001920403</option>
-                <option>1001940403</option>
-    
-                <option>1001883250</option>
-                <option>1001903250</option>
-                <option>1001913250</option>
-                <option>1001953250</option>
-                <option>1002003250</option>
-                <option>1002063250</option>
-                <option>1002073250</option>
-                <option>1002093250</option>
-                <option>1002073250</option>
-                <option>1002093250</option>
-                <option>1002133250</option>
+                  <% for(product of products){%>
+                    <option><%=product.serialNumber%></option>
+                    <%}%>
     
                 </select>
         
@@ -315,13 +238,9 @@ textarea {
                   <td>
                       <select name="pid[]" onchange="changeSerial(this)" id="product" class="form-control item_name form-control-lg" value="Item #1" required>
                           
-                          <option>Cable tube stripper 45-163</option>
-                          <option>DEVISER Optical power meter AE270</option>
-                          <option>DEVISER Optical light source LS310A</option>
-                          <option>ELOIK Splicing machine ALK-88A</option>
-                          <option>ELOIK Splicing machine ALK-A3</option>
-                          <option>Manual Microscope 400x magnification</option>
-                          <option>Tri-hole stripper</option>
+                        <% for(product of products){%>
+                          <option><%=product.name%></option>
+                          <%}%>
                           
                       </select>
                       
@@ -330,42 +249,9 @@ textarea {
     
                   <td>
                       <select name="pid[]" id="serial" disabled class="form-control item_desc form-control-lg" value="Description" required>
-                      <option>921</option>
-                      <option>23306</option>
-                      <option>23307</option>
-                      <option>23309</option>
-                      <option>23310</option>
-                      <option>23311</option>
-                      <option>23312</option>
-                      <option>23313</option>
-                      <option>23314</option>
-                      <option>23317</option>
-                      <option>23318</option>
-                      <option>23319</option>
-                      <option>23320</option>
-                      <option>23321</option>
-    
-                      <option>1001670403</option>
-                      <option>1001780403</option>
-                      <option>1001870403</option>
-                      <option>1001880403</option>
-                      <option>1001890403</option>
-                      <option>1001900403</option>
-                      <option>1001910403</option>
-                      <option>1001920403</option>
-                      <option>1001940403</option>
-    
-                      <option>1001883250</option>
-                      <option>1001903250</option>
-                      <option>1001913250</option>
-                      <option>1001953250</option>
-                      <option>1002003250</option>
-                      <option>1002063250</option>
-                      <option>1002073250</option>
-                      <option>1002093250</option>
-                      <option>1002073250</option>
-                      <option>1002093250</option>
-                      <option>1002133250</option>
+                        <% for(product of products){%>
+                          <option><%=product.serialNumber%></option>
+                          <%}%>
     
                       </select>
               
@@ -525,7 +411,11 @@ textarea {
   const row = product.parentNode.parentNode
   const serial = row.querySelector('#serial')
   serial.selectedIndex = product.selectedIndex
-
+  console.log( product.selectedIndex);
+  const price = row.querySelector('#price')
+  newPrice = `<%= products%>`
+  console.log(newPrice);
   
+  price.value = '<%= products[1].price%>'
  }
 </script>
