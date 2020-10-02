@@ -45,4 +45,17 @@ export class productController {
             res.status(400).send({error:e.message})
         }
     }
+
+    public async DeleteProduct(req:Request,res:Response){
+        try{
+            const {name}:{name:string} = req.body
+            console.log("from controller"+name);
+            const product = await productModel.findOneAndDelete({ "name": name })
+            if(product){
+                res.status(200).send(await product)
+            }
+        }catch(e){
+            res.status(400).send({error:e.message})
+        }
+    }
 }

@@ -46,6 +46,10 @@ app.get('/show', (req, res) => {
         data: req.query.data
     });
 });
+app.get('/stock', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const products = yield product_1.productModel.find({});
+    res.render('stock', { products });
+}));
 app.listen(port, () => {
     console.log('server running');
 });

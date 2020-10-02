@@ -7,7 +7,7 @@ import {productModel} from './model/product'
 
 const app = express();
 app.use(express.json())
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 app.use(expressLayouts)
 app.set('view engine', 'ejs');
 app.use(productRouter)
