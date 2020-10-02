@@ -52,7 +52,7 @@ export class productController {
             console.log("from controller"+name);
             const product = await productModel.findOneAndDelete({ "name": name })
             if(product){
-                res.status(200).send(await product)
+                res.status(200).send(product)
             }
         }catch(e){
             res.status(400).send({error:e.message})

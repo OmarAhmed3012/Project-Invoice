@@ -4,27 +4,24 @@
     const deleteRow= (btn)=>{
           if (confirm("are you sure to delete ALL product!!")) {
 
-            const name = btn.value
-            if(DeleteProduct(name)) {
-            
-            const tr = btn.parentNode.parentNode
-            const tbody = tr.parentNode
-            console.log(tbody);
-            tr.style.display ='none'
+            const name = btn.value 
+            const body = {
+                name
             }
-            } 
-        }
-
-        const DeleteProduct = (name) => {
             const options = {
                     method: 'DELETE',
-                    body: name,
+                    body: JSON.stringify(body),
                     headers: {
                         'Content-Type': 'application/json'
                         }
                     }
                     console.log(options, name)
-                    fetch('/deleteproduct', options).then((res) => console.log(res)).catch((error) => console.log(error));
+                    fetch('/deleteproduct', options).then((res) =>{
+                        const tr = btn.parentNode.parentNode
+                        const tbody = tr.parentNode
+                        tr.style.display ='none'
+                    } ).catch((error) => console.log(error));
         }
+    }
 
 </script>
