@@ -44,7 +44,7 @@ class product extends Typegoose{
     async AddQuantity(this:InstanceType<product>,quantity:number){
         if(quantity>0){
             const product = this
-            if(product.quantity){
+            if(product.quantity!==undefined){
                 product.quantity = product.quantity + quantity
                 await product.save()
                 return product ;

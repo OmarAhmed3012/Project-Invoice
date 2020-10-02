@@ -106,7 +106,7 @@ textarea {
               <tbody>
                 <tr class="item-row" id="row">
                   <td>
-                      <select name="pid[]" id="product" class="form-control item_name form-control-lg" value="Item #1" required>
+                      <select name="pid[]" id="product" onchange="changeSerial(this)" class="form-control item_name form-control-lg" value="Item #1" required>
                           
                           <option>Cable tube stripper 45-163</option>
                           <option>DEVISER Optical power meter AE270</option>
@@ -122,7 +122,7 @@ textarea {
                   </td>
     
                   <td>
-                      <select name="pid[]" id="serial" class="form-control item_desc form-control-lg" value="Description" required>
+                      <select name="pid[]" disabled id="serial" class="form-control item_desc form-control-lg" value="Description" required>
                       <option>921</option>
                       <option>23306</option>
                       <option>23307</option>
@@ -164,7 +164,7 @@ textarea {
               
                   </td>
     
-                  <td><input class="form-control cost" id="price" onchange="findtotal(this)" value="650.00" /></td>
+                  <td><input class="form-control cost" disabled id="price" onchange="findtotal(this)" value="650.00" /></td>
                   <td><input class="form-control qty" id="quantity" onchange="findtotal(this)" value="1" /></td>
                   <td class="price_td"><span class="price" id="totalRow">650.00</span><span class="subtotal_currency"></span></td>
                   <td class="delete_td"><a class="delete" onclick="deleteRow(this)" title="Remove row"><span class="fas fa-window-close"></span></a></td>
@@ -172,7 +172,7 @@ textarea {
               
                 <tr class="item-row" id="row">
                 <td>
-                <select name="pid[]" id="product" class="form-control item_name form-control-lg" value="Item #2" required>
+                <select name="pid[]" id="product" onchange="changeSerial(this)" class="form-control item_name form-control-lg" value="Item #2" required>
                     
                     <option>Cable tube stripper 45-163</option>
                     <option>DEVISER Optical power meter AE270</option>
@@ -186,7 +186,7 @@ textarea {
             </td>
     
             <td>
-                <select name="pid[]" id="serial" class="form-control item_desc form-control-lg" value="Description" required>
+                <select name="pid[]" disabled id="serial" class="form-control item_desc form-control-lg" value="Description" required>
                 <option>921</option>
                 <option>23306</option>
                 <option>23307</option>
@@ -228,7 +228,7 @@ textarea {
         
                 
               </td>
-                  <td><input class="form-control cost" id="price" onchange="findtotal(this)" value="75.00" /></td>
+                  <td><input class="form-control cost" disabled id="price" onchange="findtotal(this)" value="75.00" /></td>
                   <td><input class="form-control qty" id="quantity" onchange="findtotal(this)" value="3" /></td>
                   <td class="price_td"><span class="price" id="totalRow">225.00</span><span class="subtotal_currency"></span></td>
                   <td class="delete_td"><a class="delete" onclick="deleteRow(this)" title="Remove row"><span class="fas fa-window-close"></span></a></td>
@@ -313,7 +313,7 @@ textarea {
   div.id = 'row'
   div.innerHTML = `<tr class="item-row">
                   <td>
-                      <select name="pid[]" id="product" class="form-control item_name form-control-lg" value="Item #1" required>
+                      <select name="pid[]" onchange="changeSerial(this)" id="product" class="form-control item_name form-control-lg" value="Item #1" required>
                           
                           <option>Cable tube stripper 45-163</option>
                           <option>DEVISER Optical power meter AE270</option>
@@ -329,7 +329,7 @@ textarea {
                   </td>
     
                   <td>
-                      <select name="pid[]" id="serial" class="form-control item_desc form-control-lg" value="Description" required>
+                      <select name="pid[]" id="serial" disabled class="form-control item_desc form-control-lg" value="Description" required>
                       <option>921</option>
                       <option>23306</option>
                       <option>23307</option>
@@ -371,7 +371,7 @@ textarea {
               
                   </td>
     
-                  <td><input class="form-control cost" id="price" onchange="findtotal(this)" value="650.00" /></td>
+                  <td><input class="form-control cost" disabled id="price" onchange="findtotal(this)" value="650.00" /></td>
                   <td><input class="form-control qty" id="quantity" onchange="findtotal(this)" value="0" /></td>
                   <td class="price_td"><span class="price" id="totalRow">0</span><span class="subtotal_currency"></span></td>
                   <td class="delete_td"><a class="delete" onclick="deleteRow(this)" title="Remove row"><span class="fas fa-window-close"></span></a></td>
@@ -491,6 +491,7 @@ textarea {
    
    let s = ''
     rows.forEach(row => {
+    if(row.style.display !== 'none'){
     s = s + `<tr>
               <td>${row.querySelector('#product').selectedOptions[0].textContent}</td>
               <td>${row.querySelector('#serial').selectedOptions[0].textContent}</td>
@@ -498,6 +499,7 @@ textarea {
               <td>${row.querySelector('#quantity').value}</td>
               <td>${row.querySelector('#totalRow').textContent}</td>
             </tr>`
+          }
    });
 
    return s
@@ -518,5 +520,12 @@ textarea {
 // )
 // window.open(PDF.output('datauristring'))
 //    console.log(print);
+ }
+ const changeSerial=(product)=>{
+  const row = product.parentNode.parentNode
+  const serial = row.querySelector('#serial')
+  serial.selectedIndex = product.selectedIndex
+
+  
  }
 </script>

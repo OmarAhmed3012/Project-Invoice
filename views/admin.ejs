@@ -77,7 +77,10 @@
                         }
                         fetch('/quantity',option).then(res=>{
                             if(res.status ===400){
-                                return console.log('Error occur');
+                                res.json().then(res=>{
+                                    console.log(res);
+                                })
+                                
                             }else{
                                 res.json().then(res=>{
                                     console.log(res);

@@ -12,27 +12,15 @@
           </tr>
         </thead>
         <tbody>
+          <% for(product of products){%>
           <tr>
-            <td>ELOIK Splicing machine ALK-88A</td>
-            <td>23307</td>
-            <td>1</td>
-            <td>100 E.G.P</td>
+            <td><%=product.name%></td>
+            <td><%=product.serialNumner%></td>
+            <td><%=product.quantity%></td>
+            <td><%=product.price%> E.G.P</td>
             <td>150 E.G.P</td>
             </tr>
-            <tr>
-                <td>ELOIK Splicing machine ALK-88A</td>
-                <td>23307</td>
-                <td>1</td>
-                <td>100 E.G.P</td>
-                <td>150 E.G.P</td>
-            </tr>
-            <tr>
-                <td>ELOIK Splicing machine ALK-88A</td>
-                <td>23307</td>
-                <td>1</td>
-                <td>100 E.G.P</td>
-                <td>150 E.G.P</td>
-            </tr>
+            <%}%>
         </tbody>
       </table>
 </div>
