@@ -7,11 +7,11 @@ export class productController {
         try{
             console.log(req.query);
             console.log(req.body);
-            let {name,price,quantity,serialNumber} :{name:string,price:number,quantity:number,serialNumber:string} = req.body
+            let {name,price,quantity,serialNumber,sellPrice} :{name:string,price:number,quantity:number,serialNumber:string,sellPrice:number} = req.body
             if(!quantity){
                 quantity = 0
             }
-            const product = new productModel({name,price,serialNumber,quantity})
+            const product = new productModel({name,price,sellPrice,serialNumber,quantity})
             await product.save()
             res.send(product)
         }
@@ -48,9 +48,9 @@ export class productController {
 
     public async DeleteProduct(req:Request,res:Response){
         try{
-            const {name}:{name:string} = req.body
-            console.log("from controller"+name);
-            const product = await productModel.findOneAndDelete({ "name": name })
+            const {serialNumber}:{serialNumber:string} = req.body
+            console.log("from controller"+serialNumber);
+            const product = await productModel.findOneAndDelete({ "serialNumber": serialNumber })
             if(product){
                 res.status(200).send(product)
             }

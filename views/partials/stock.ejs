@@ -18,8 +18,8 @@
             <td><%=product.serialNumber%></td>
             <td><%=product.quantity%></td>
             <td><%=product.price%> E.G.P</td>
-            <td>150 E.G.P</td>
-            <td><button id="delete" type="button" class="btn btn-danger" value='<%=product.name%>' onclick='deleteRow(this)'>Distroy</button></td>
+            <td><%=product.sellPrice%> E.G.P</td>
+            <td><button id="delete" type="button" class="btn btn-danger" value='<%=product.serialNumber%>' onclick='deleteRow(this)'>Distroy</button></td>
             </tr>
             <%}%>
         </tbody>

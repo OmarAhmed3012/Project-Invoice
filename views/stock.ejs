@@ -4,9 +4,9 @@
     const deleteRow= (btn)=>{
           if (confirm("are you sure to delete ALL product!!")) {
 
-            const name = btn.value 
+            const serialNumber = btn.value 
             const body = {
-                name
+                serialNumber
             }
             const options = {
                     method: 'DELETE',
@@ -15,7 +15,7 @@
                         'Content-Type': 'application/json'
                         }
                     }
-                    console.log(options, name)
+                    console.log(options, name + "from stock")
                     fetch('/deleteproduct', options).then((res) =>{
                         const tr = btn.parentNode.parentNode
                         const tbody = tr.parentNode

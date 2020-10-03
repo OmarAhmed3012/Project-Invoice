@@ -20,7 +20,7 @@ const express_ejs_layouts_1 = __importDefault(require("express-ejs-layouts"));
 const product_1 = require("./model/product");
 const app = express_1.default();
 app.use(express_1.default.json());
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 app.use(express_ejs_layouts_1.default);
 app.set('view engine', 'ejs');
 app.use(productRouter_1.productRouter);
@@ -34,9 +34,10 @@ app.get('/admin', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(products);
     res.render('admin', { products });
 }));
-app.get('/addinvoice', (req, res) => {
-    res.render('addinvoice');
-});
+app.get('/addinvoice', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const products = yield product_1.productModel.find({});
+    res.render('addinvoice', { products });
+}));
 app.get('/show', (req, res) => {
     console.log(req.query.company);
     res.render('show', {

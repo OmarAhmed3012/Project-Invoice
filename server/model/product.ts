@@ -15,6 +15,12 @@ class product extends Typegoose{
     price?:number
 
     @prop({
+        required:true
+    })
+    sellPrice?:number
+
+    @prop({
+        unique:true,
         required:true,
         trim:true
     })
