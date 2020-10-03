@@ -124,8 +124,16 @@ textarea {
                       </select>
                      
                   </td>
+                  <td>
+                    <select name="pid[]" disabled id="price" class="form-control item_desc form-control-lg" value="Description" required>
+                      <% for(product of products){%>
+                      <option><%= product.sellPrice %> </option>
+                      <%}%>
+                    </select>
+                   
+                </td>
     
-                  <td><input class="form-control cost" disabled id="price" onchange="findtotal(this)" value=<%=products[0].price%> /></td>
+                  <!-- <td><input class="form-control cost" disabled id="price" onchange="findtotal(this)" value=<%=products[0].price%> /></td> -->
                   <td><input class="form-control qty" id="quantity" onchange="findtotal(this)" value="1" /></td>
                   <td class="price_td"><span class="price" id="totalRow">650.00</span><span class="subtotal_currency"></span></td>
                   <td class="delete_td"><a class="delete" onclick="deleteRow(this)" title="Remove row"><span class="fas fa-window-close"></span></a></td>
@@ -151,7 +159,15 @@ textarea {
         
                 
               </td>
-                  <td><input class="form-control cost" disabled id="price" onchange="findtotal(this)" value="75.00" /></td>
+              <td>
+                <select name="pid[]" disabled id="price" class="form-control item_desc form-control-lg" value="Description" required>
+                  <% for(product of products){%>
+                  <option><%= product.sellPrice %> </option>
+                  <%}%>
+                </select>
+               
+              </td>
+                  <!-- <td><input class="form-control cost" disabled id="price" onchange="findtotal(this)" value="75.00" /></td> -->
                   <td><input class="form-control qty" id="quantity" onchange="findtotal(this)" value="3" /></td>
                   <td class="price_td"><span class="price" id="totalRow">225.00</span><span class="subtotal_currency"></span></td>
                   <td class="delete_td"><a class="delete" onclick="deleteRow(this)" title="Remove row"><span class="fas fa-window-close"></span></a></td>
@@ -177,7 +193,7 @@ textarea {
                 </tr>
                 <tr>
                   <th>Tax:</th>
-                  <td><input id="tax" onchange="totalInvoice()" class="form-control" value="0.00" /></td>
+                  <td><input id="tax" disabled onchange="totalInvoice()" class="form-control" value="0.00" /></td>
                 </tr>
                 <tr>
                   <th>Total:</th>
@@ -256,8 +272,14 @@ textarea {
                       </select>
               
                   </td>
-    
-                  <td><input class="form-control cost" disabled id="price" onchange="findtotal(this)" value="650.00" /></td>
+                  <td>
+                    <select name="pid[]" disabled id="price" class="form-control item_desc form-control-lg" value="Description" required>
+                      <% for(product of products){%>
+                      <option><%= product.sellPrice %> </option>
+                      <%}%>
+                    </select>
+                   
+                 </td>
                   <td><input class="form-control qty" id="quantity" onchange="findtotal(this)" value="0" /></td>
                   <td class="price_td"><span class="price" id="totalRow">0</span><span class="subtotal_currency"></span></td>
                   <td class="delete_td"><a class="delete" onclick="deleteRow(this)" title="Remove row"><span class="fas fa-window-close"></span></a></td>
@@ -273,7 +295,7 @@ textarea {
     const price = td.querySelector('#price')
     const quantity = td.querySelector('#quantity')
     const totalRow = td.querySelector('#totalRow')
-    const clc =Number(price.value)*Number(quantity.value)
+    const clc =Number(price.selectedOptions[0].textContent)*Number(quantity.value)
     totalRow.textContent = clc
     console.log(clc);
     let sum = 0 
@@ -286,6 +308,7 @@ textarea {
     const subTotal = document.getElementById('subtotal')  
     subTotal.textContent = sum
     const tax = document.getElementById('tax')
+    tax.value = Number(subTotal.textContent) * 0.15
     const total_invoice = document.getElementById('invoice_total')
     total_invoice.textContent = sum + Number(tax.value)
     
@@ -381,7 +404,7 @@ textarea {
     s = s + `<tr>
               <td>${row.querySelector('#product').selectedOptions[0].textContent}</td>
               <td>${row.querySelector('#serial').selectedOptions[0].textContent}</td>
-              <td>${row.querySelector('#price').value}</td>
+              <td>${row.querySelector('#price').selectedOptions[0].textContent}</td>
               <td>${row.querySelector('#quantity').value}</td>
               <td>${row.querySelector('#totalRow').textContent}</td>
             </tr>`
@@ -413,9 +436,10 @@ textarea {
   serial.selectedIndex = product.selectedIndex
   console.log( product.selectedIndex);
   const price = row.querySelector('#price')
-  newPrice = `<%= products%>`
-  console.log(newPrice);
-  
-  price.value = '<%= products[1].price%>'
+  price.selectedIndex = product.selectedIndex
+  findtotal(price)
  }
+ const quantity = document.querySelectorAll('#quantity')
+ findtotal(quantity[0])
+ findtotal(quantity[1])
 </script>
