@@ -20,7 +20,7 @@ const express_ejs_layouts_1 = __importDefault(require("express-ejs-layouts"));
 const product_1 = require("./model/product");
 const app = express_1.default();
 app.use(express_1.default.json());
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 app.use(express_ejs_layouts_1.default);
 app.set('view engine', 'ejs');
 app.use(productRouter_1.productRouter);

@@ -7,7 +7,7 @@ import {productModel} from './model/product'
 
 const app = express();
 app.use(express.json())
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 app.use(expressLayouts)
 app.set('view engine', 'ejs');
 app.use(productRouter)
@@ -46,6 +46,7 @@ app.get('/stock',async(req,res)=>{
     const products = await productModel.find({})
     res.render('stock',{products}) 
 })
+
 app.listen(port,()=>{
     console.log('server running');
     
