@@ -5,5 +5,4 @@ const controller = new productController()
 
 productRouter.post('/product',controller.addproduct)
 productRouter.post('/quantity',controller.addQuantity)
-productRouter.post('/invoice',controller.invoice)
 productRouter.delete('/deleteproduct',controller.DeleteProduct)

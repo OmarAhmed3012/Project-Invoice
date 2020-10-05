@@ -2,7 +2,7 @@ import express from "express"
 import mongoose from "mongoose" 
 import {Typegoose,prop,instanceMethod,InstanceType} from "typegoose"
 
-class product extends Typegoose{
+export class product extends Typegoose{
     @prop({
         required:true,
         trim:true

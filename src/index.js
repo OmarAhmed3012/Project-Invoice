@@ -16,19 +16,22 @@ const express_1 = __importDefault(require("express"));
 require("./db/connection");
 const path_1 = __importDefault(require("path"));
 const productRouter_1 = require("./routers/productRouter");
+const invoiceRouter_1 = require("./routers/invoiceRouter");
 const express_ejs_layouts_1 = __importDefault(require("express-ejs-layouts"));
 const product_1 = require("./model/product");
+const invoice_1 = require("./model/invoice");
 const app = express_1.default();
 app.use(express_1.default.json());
 const port = process.env.PORT || 3000;
 app.use(express_ejs_layouts_1.default);
 app.set('view engine', 'ejs');
 app.use(productRouter_1.productRouter);
+app.use(invoiceRouter_1.invoiceRouter);
 app.set('views', path_1.default.join(__dirname, '../views'));
-const options = ['1', '2', '3'];
-app.get('', (req, res) => {
-    res.render('index.ejs', { options: options });
-});
+app.get('', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const invoices = yield invoice_1.invoiceModel.find({});
+    res.render('index.ejs', { invoices });
+}));
 app.get('/admin', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const products = yield product_1.productModel.find({});
     console.log(products);

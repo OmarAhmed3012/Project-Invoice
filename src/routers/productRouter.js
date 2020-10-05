@@ -7,5 +7,4 @@ exports.productRouter = express_1.Router();
 const controller = new productController_1.productController();
 exports.productRouter.post('/product', controller.addproduct);
 exports.productRouter.post('/quantity', controller.addQuantity);
-exports.productRouter.post('/invoice', controller.invoice);
 exports.productRouter.delete('/deleteproduct', controller.DeleteProduct);

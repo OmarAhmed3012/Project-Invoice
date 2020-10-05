@@ -208,7 +208,7 @@ textarea {
         <div class="row">
           <div class="col-xs-12 pull-left">
             <a class="btn btn-info btn-sm" id="invoice_button" onclick="showModel()" data-toggle="modal" data-target="#invoice_modal">Show Invoice</a>
-            <a href="/" type="submit" name="commit" value="Submit Payment" class="btn btn btn-warning btn-sm" id="submit_invoice" data-disable-with="Submit Payment">Add Invoice</a>
+            <a  type="submit" name="commit" value="Submit Payment" onclick="addinvoice()" class="btn btn btn-warning btn-sm" id="submit_invoice" data-disable-with="Submit Payment">Add Invoice</a>
           </div>
         </div>
     <div class="terms">
@@ -430,6 +430,61 @@ textarea {
 // window.open(PDF.output('datauristring'))
 //    console.log(print);
  }
+
+const addinvoice=()=>{
+  const rows = document.querySelectorAll('#row')
+  const amount = document.getElementById('invoice_total').textContent
+  const data = {
+    cardItems:[],
+    from:{
+      company:document.getElementById(1).value,
+      addressOne:document.getElementById(2).value,
+      addressOne:document.getElementById(3).value,     
+      mobile:document.getElementById(4).value,
+    },
+    to:{
+      company:document.getElementById(5).value,
+      addressOne:document.getElementById(6).value,
+      addressOne:document.getElementById(7).value,     
+      mobile:document.getElementById(8).value,
+    },
+    amount,
+    date:document.getElementById('invoice-date').value
+  }
+  rows.forEach((row) => {
+    data.cardItems.push(
+        {serialNumber:row.querySelector('#serial').selectedOptions[0].textContent,
+        quantity : Number(row.querySelector('#quantity').value)}
+    )
+  });
+  const date = new Date()
+  const today = String(date.getDate()).padStart(2,'0')
+  const month = String(date.getMonth()+1).padStart(2,'0')
+  const year = String(date.getFullYear())
+  const d =year+'-'+month+'-'+today
+  
+  if(d === data.date){
+    const options ={
+      body:JSON.stringify(data),
+      method:'POST',
+      headers:{
+                'Content-Type': 'application/json'
+              }
+    }
+    console.log(options.body);
+    
+    fetch('/invoiceee',options).then(res=>res.json().then(res=>{
+      console.log(res)
+      window.location.href = './'
+    }
+    ).catch(error=>alert(error)))
+  }else{
+    alert('Enter valid Date')
+  } 
+  
+}
+
+ 
  const changeSerial=(product)=>{
   const row = product.parentNode.parentNode
   const serial = row.querySelector('#serial')

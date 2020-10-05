@@ -2,8 +2,10 @@ import express from "express"
 import "./db/connection"
 import path from 'path'
 import {productRouter} from'./routers/productRouter'
+import {invoiceRouter} from'./routers/invoiceRouter'
 import expressLayouts from 'express-ejs-layouts'
 import {productModel} from './model/product'
+import {invoiceModel} from './model/invoice'
 
 const app = express();
 app.use(express.json())
@@ -11,13 +13,13 @@ const port = process.env.PORT || 3000;
 app.use(expressLayouts)
 app.set('view engine', 'ejs');
 app.use(productRouter)
+app.use(invoiceRouter)
 
 app.set('views',path.join(__dirname,'../views'))
 
-const options = ['1', '2', '3'];
-
-app.get('', (req, res) => {
-    res.render('index.ejs', {options: options});
+app.get('',async (req, res) => {
+    const invoices = await invoiceModel.find({})
+    res.render('index.ejs', {invoices});
 });
 
 app.get('/admin', async(req, res) => {

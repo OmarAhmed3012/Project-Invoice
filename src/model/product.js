@@ -18,7 +18,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.productModel = void 0;
+exports.productModel = exports.product = void 0;
 const typegoose_1 = require("typegoose");
 class product extends typegoose_1.Typegoose {
     invoice(quantity) {
@@ -99,4 +99,5 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], product.prototype, "AddQuantity", null);
+exports.product = product;
 exports.productModel = new product().getModelForClass(product);
