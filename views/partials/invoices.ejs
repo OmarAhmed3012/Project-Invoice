@@ -16,7 +16,7 @@
             </thead>
             <tbody>
               <%for(invoice of invoices){%>
-              <tr id=<%=invoice._id%></tr>
+              <tr id=<%=invoice._id%>>
                 <td><%=invoice.from.company%></td>
                 <td><%=invoice.to.company%></td>
                 <td><%=invoice.amount%> E.G.P</td>
@@ -43,13 +43,34 @@
           
           window.location.href = `/show?company=${Company}&contragent=${Contragent}&amount=${Amount}&data=${d}`
         }
-        const deleteRow= (btn)=>{
-          if (confirm("are you sure to delete invoice")) {
-            const tr = btn.parentNode.parentNode
-            const tbody = tr.parentNode
-            console.log(tbody);
-            tr.style.display ='none'
-            
-            } 
+        
+  const deleteRow= (btn)=>{
+    if (confirm("are you sure to delete invoice")) {
+      const tr = btn.parentNode.parentNode
+      console.log(tr);
+      
+      const data = {
+        _id:tr.id
+      }
+      console.log(tr.id);
+      console.log(data._id);
+      
+      
+      const options = {
+        body:JSON.stringify(data),
+        method:'delete',
+        headers:{'Content-Type': 'application/json'}
+      }
+      fetch('/invoice',options).then(req=>{
+        if(req.status ===400){
+          return alert('Server Error')
         }
+        tr.style.display ='none'     
+      }).catch(error=>alert(error))
+      
+
+      
+      } 
+  }
+
     </script>
