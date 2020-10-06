@@ -23,7 +23,7 @@
                 <td><%=invoice.date%></td>
                 <td>
                   <button type="button" onclick="show(this)" class="btn btn-secondary">Show</button></td>
-                <td><a href="/editinvoice" class="btn btn-primary">Edit</a></td>
+                <td><a href="/editinvoice?_id=<%=invoice._id%>" class="btn btn-primary">Edit</a></td>
                 <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">Distroy</button></td>
               </tr>
               <%}%>
@@ -35,13 +35,14 @@
     <script>
         const show = (btn)=>{
           const tr =btn.parentNode.parentNode
+          const _id = tr.id
           const Company=tr.children[0].textContent
           const Contragent = tr.children[1].textContent
           const Amount = tr.children[2].textContent
           const d = tr.children[3].textContent.toString()
           console.log(Company);
           
-          window.location.href = `/show?company=${Company}&contragent=${Contragent}&amount=${Amount}&data=${d}`
+          window.location.href = `/show?company=${Company}&contragent=${Contragent}&amount=${Amount}&data=${d}&_id=${_id}`
         }
         
   const deleteRow= (btn)=>{

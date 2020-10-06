@@ -34,13 +34,24 @@ app.get('/addinvoice', async(req, res) => {
 })
 
 app.get('/editinvoice', async(req, res) => {
+    const _id = req.query._id
+    try{
+    const invoice = await invoiceModel.findById({_id}).populate('items').exec()
+    if(!invoice)
+        return res.send('<h1>404 Page Not found</h1>')
     const products = await productModel.find({})
-    res.render('editinvoice',{products});
+    res.render('editinvoice',{products,invoice});
+    }catch(e){
+        console.log(e.message);
+        
+        return res.send('<h1>404 Page Not found</h1>')
+    }
 })
 
 app.get('/show',(req,res)=>{
     console.log(req.query.company);
     res.render('show',{
+        _id:req.query._id,
         company:req.query.company,
         contragent: req.query.contragent,
         amount : req.query.amount,
