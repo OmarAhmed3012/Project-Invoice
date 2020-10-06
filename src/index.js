@@ -41,6 +41,10 @@ app.get('/addinvoice', (req, res) => __awaiter(void 0, void 0, void 0, function*
     const products = yield product_1.productModel.find({});
     res.render('addinvoice', { products });
 }));
+app.get('/editinvoice', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const products = yield product_1.productModel.find({});
+    res.render('editinvoice', { products });
+}));
 app.get('/show', (req, res) => {
     console.log(req.query.company);
     res.render('show', {

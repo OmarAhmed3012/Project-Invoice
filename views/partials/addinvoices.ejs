@@ -82,7 +82,7 @@ textarea {
               <div class="col-xs-12"></div>
               <div class="form-group">
                 <div class="col-xs-5 invoice_space"><label>Amount due</label></div>
-                <div class="col-xs-7 invoice_space bold" style="text-align:center; padding-top:7px"><span class="due">875.00</span><span class="subtotal_currency"></span></div>
+                <div class="col-xs-7 invoice_space bold" style="text-align:center; padding-top:7px"><span class="due" id="invoice_total2">875.00</span><span class="subtotal_currency"></span></div>
               </div>
             </form>
           </div><!-- /.col -->
@@ -133,43 +133,9 @@ textarea {
                    
                 </td>
     
-                  <!-- <td><input class="form-control cost" disabled id="price" onchange="findtotal(this)" value=<%=products[0].price%> /></td> -->
+                  
                   <td><input class="form-control qty" id="quantity" onchange="findtotal(this)" value="1" /></td>
                   <td class="price_td"><span class="price" id="totalRow">650.00</span><span class="subtotal_currency"></span></td>
-                  <td class="delete_td"><a class="delete" onclick="deleteRow(this)" title="Remove row"><span class="fas fa-window-close"></span></a></td>
-                </tr>
-              
-                <tr class="item-row" id="row">
-                <td>
-                <select name="pid[]" id="product" onchange="changeSerial(this)" class="form-control item_name form-control-lg" value="Item #2" required>                    
-                  <% for(product of products){%>
-                    <option><%=product.name%></option>
-                    <%}%>
-                    
-                </select>
-            </td>
-    
-            <td>
-                <select name="pid[]" disabled id="serial" class="form-control item_desc form-control-lg" value="Description" required>
-                  <% for(product of products){%>
-                    <option><%=product.serialNumber%></option>
-                    <%}%>
-    
-                </select>
-        
-                
-              </td>
-              <td>
-                <select name="pid[]" disabled id="price" class="form-control item_desc form-control-lg" value="Description" required>
-                  <% for(product of products){%>
-                  <option><%= product.sellPrice %> </option>
-                  <%}%>
-                </select>
-               
-              </td>
-                  <!-- <td><input class="form-control cost" disabled id="price" onchange="findtotal(this)" value="75.00" /></td> -->
-                  <td><input class="form-control qty" id="quantity" onchange="findtotal(this)" value="3" /></td>
-                  <td class="price_td"><span class="price" id="totalRow">225.00</span><span class="subtotal_currency"></span></td>
                   <td class="delete_td"><a class="delete" onclick="deleteRow(this)" title="Remove row"><span class="fas fa-window-close"></span></a></td>
                 </tr>
               
@@ -303,14 +269,16 @@ textarea {
     allTotalRow.forEach(element => {
       console.log(element.textContent);
       sum= sum + Number(element.textContent)
-      console.log(sum);
+      console.log("sum"+sum);
     });
     const subTotal = document.getElementById('subtotal')  
     subTotal.textContent = sum
     const tax = document.getElementById('tax')
-    tax.value = Number(subTotal.textContent) * 0.15
+    tax.value = (Number(subTotal.textContent) * 0.14).toFixed(2)
     const total_invoice = document.getElementById('invoice_total')
     total_invoice.textContent = sum + Number(tax.value)
+    const total_invoice2 = document.getElementById('invoice_total2')
+    total_invoice2.textContent = sum + Number(tax.value)
     
   }
 
@@ -492,9 +460,10 @@ const addinvoice=()=>{
   console.log( product.selectedIndex);
   const price = row.querySelector('#price')
   price.selectedIndex = product.selectedIndex
+  console.log("price is"+price)
   findtotal(price)
  }
  const quantity = document.querySelectorAll('#quantity')
  findtotal(quantity[0])
- findtotal(quantity[1])
+ 
 </script>

@@ -35,10 +35,10 @@
     <script>
         const show = (btn)=>{
           const tr =btn.parentNode.parentNode
-          const Company=tr.children[1].textContent
-          const Contragent = tr.children[2].textContent
-          const Amount = tr.children[3].textContent
-          const d = tr.children[4].textContent
+          const Company=tr.children[0].textContent
+          const Contragent = tr.children[1].textContent
+          const Amount = tr.children[2].textContent
+          const d = tr.children[3].textContent.toString()
           console.log(Company);
           
           window.location.href = `/show?company=${Company}&contragent=${Contragent}&amount=${Amount}&data=${d}`

@@ -33,6 +33,11 @@ app.get('/addinvoice', async(req, res) => {
     res.render('addinvoice',{products});
 })
 
+app.get('/editinvoice', async(req, res) => {
+    const products = await productModel.find({})
+    res.render('editinvoice',{products});
+})
+
 app.get('/show',(req,res)=>{
     console.log(req.query.company);
     res.render('show',{
