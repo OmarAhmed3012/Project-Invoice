@@ -6,3 +6,4 @@ const invoiceController_1 = require("../controllers/invoiceController");
 exports.invoiceRouter = express_1.Router();
 const controllers = new invoiceController_1.invoiceController();
 exports.invoiceRouter.post('/invoiceee', controllers.addInvoice);
+exports.invoiceRouter.delete('/invoice', controllers.deleteInvoive);

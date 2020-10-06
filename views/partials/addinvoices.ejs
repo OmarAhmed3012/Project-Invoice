@@ -192,7 +192,7 @@ textarea {
             <div class="container-fluid invoice_wrapper" id="print-me">
             </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="printDiv('print-me')">Print</button>
+            <button id="Printing" type="button" class="btn btn-primary" >Print</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
@@ -200,7 +200,19 @@ textarea {
     </div>
 </div>
 
-<script>
+<script type="text/javascript" src="../draft.js">
+console.log('impoted');
+</script>
+<script type="text/javascript">
+
+    document.getElementById('Printing').addEventListener('click', function(e){
+            var element = document.getElementById('print-me');
+            e.preventDefault();
+            PHE.printElement(element, {pageTitle: 'From HTML Element'});
+        });
+  
+
+
   const deleteRow= (btn)=>{
           if (confirm("are you sure to delete row")) {
             const tr = btn.parentNode.parentNode

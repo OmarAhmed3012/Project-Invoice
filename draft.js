@@ -1,5 +1,6 @@
-
+/*
 const printer = require('printer');
+const util = require('util');
 const fs = require('fs');
 
 //const imagemagick = require('imagemagick-native');
@@ -30,8 +31,9 @@ imagemagick.convert({
             console.error('error on printing: ' + err);
         }
     })
-})*/
+})
 
+console.log("supported formats are:\n"+util.inspect(printer.getSupportedPrintFormats(), {colors:true, depth:10}));
 
 function sendPrint() {
   printer.printDirect({
@@ -67,3 +69,7 @@ fs.readFile('Omar Ahmed.pdf', function(err, data){
           }
       })
   });*/
+
+  const PHE = require('print-html-element');
+
+  module.exports = PHE

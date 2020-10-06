@@ -48,5 +48,22 @@ class invoiceController {
             }
         });
     }
+    deleteInvoive(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const _id = req.body;
+            try {
+                const invoice = yield invoice_1.invoiceModel.findByIdAndDelete(_id);
+                if (invoice) {
+                    return res.send({ message: 'invoice Deleted' });
+                }
+                else {
+                    return res.status(400).send({ error: 'invoice cant found' });
+                }
+            }
+            catch (error) {
+                return res.status(400).send({ error: error.message });
+            }
+        });
+    }
 }
 exports.invoiceController = invoiceController;

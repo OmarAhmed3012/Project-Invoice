@@ -42,12 +42,23 @@ app.get('/addinvoice', (req, res) => __awaiter(void 0, void 0, void 0, function*
     res.render('addinvoice', { products });
 }));
 app.get('/editinvoice', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const products = yield product_1.productModel.find({});
-    res.render('editinvoice', { products });
+    const _id = req.query._id;
+    try {
+        const invoice = yield invoice_1.invoiceModel.findById({ _id }).populate('items').exec();
+        if (!invoice)
+            return res.send('<h1>404 Page Not found</h1>');
+        const products = yield product_1.productModel.find({});
+        res.render('editinvoice', { products, invoice });
+    }
+    catch (e) {
+        console.log(e.message);
+        return res.send('<h1>404 Page Not found</h1>');
+    }
 }));
 app.get('/show', (req, res) => {
     console.log(req.query.company);
     res.render('show', {
+        _id: req.query._id,
         company: req.query.company,
         contragent: req.query.contragent,
         amount: req.query.amount,
