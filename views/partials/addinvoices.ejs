@@ -27,6 +27,10 @@ textarea {
     box-sizing: border-box;
 }
 
+.invoice-info {
+  width: 100%;
+}
+
     </style>
 
 <div class="container">
@@ -189,10 +193,10 @@ textarea {
     <div class="modal" id="invoice_modal">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="container-fluid invoice_wrapper" id="print-me">
+            <div class="container-fluid invoice_wrapper p-5" id="print-me">
             </div>
           <div class="modal-footer">
-            <button id="Printing" type="button" class="btn btn-primary" >Print</button>
+            <button id="Printing" type="button" class="btn btn-primary" onclick="Print('print-me')" >Print</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
@@ -200,16 +204,21 @@ textarea {
     </div>
 </div>
 
-<script type="text/javascript" src="../draft.js">
-console.log('impoted');
-</script>
 <script type="text/javascript">
 
-    document.getElementById('Printing').addEventListener('click', function(e){
-            var element = document.getElementById('print-me');
-            e.preventDefault();
-            PHE.printElement(element, {pageTitle: 'From HTML Element'});
-        });
+  function Print(divName){
+			var printContents = document.getElementById(divName).innerHTML;
+			var originalContents = document.body.innerHTML;
+
+			document.body.innerHTML = printContents;
+
+			window.print();
+
+			document.body.innerHTML = originalContents;
+
+		}
+
+    
   
 
 
