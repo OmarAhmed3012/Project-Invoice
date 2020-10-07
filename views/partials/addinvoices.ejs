@@ -206,21 +206,6 @@ textarea {
 
 <script type="text/javascript">
 
-  function Print(divName){
-			var printContents = document.getElementById(divName).innerHTML;
-			var originalContents = document.body.innerHTML;
-
-			document.body.innerHTML = printContents;
-
-			window.print();
-
-			document.body.innerHTML = originalContents;
-
-		}
-
-    
-  
-
 
   const deleteRow= (btn)=>{
           if (confirm("are you sure to delete row")) {
@@ -487,4 +472,32 @@ const addinvoice=()=>{
  const quantity = document.querySelectorAll('#quantity')
  findtotal(quantity[0])
  
+</script>
+
+<script>
+
+HTMLElement.prototype.printMe = printMe;
+function printMe(query){
+  var myframe = document.createElement('IFRAME');
+  myframe.domain = document.domain;
+  myframe.style.position = "absolute";
+  myframe.style.top = "-10000px";
+  document.body.appendChild(myframe);
+  myframe.contentDocument.write(this.innerHTML) ;
+  setTimeout(function(){
+  myframe.focus();
+  myframe.contentWindow.print();
+  myframe.parentNode.removeChild(myframe) ;// remove frame
+  },0); // wait for images to load inside iframe
+  window.focus();
+ }
+
+
+
+  function Print(divName){
+    document.getElementById(divName).printMe();
+
+    addinvoice();
+
+		}
 </script>
