@@ -183,7 +183,7 @@ textarea {
         </div>
     <div class="terms">
           <h5>Terms</h5>
-          <textarea id="10">Payment terms: 100% Upon Delivery.</textarea>
+          <textarea id="terms">Payment terms: 100% Upon Delivery.</textarea>
         </div>
         
       </div>
@@ -358,9 +358,32 @@ textarea {
               <tbody>${getTableInfo()}<tbody>
               </table>
               </div>
+
+              <div class="row">
+          <div class="col-xs-6 col-xs-offset-6">
+            <div class="table-responsive">
+              <table class="table table-hover" id="totals">
+                <tr>
+                  <th style="width:50%">Subtotal:</th>
+                  <td><span>${document.getElementById('subtotal').innerText}</span><span class="subtotal_currency"></span></td>
+                </tr>
+                <tr>
+                  <th>Tax:</th>
+                  <td><span>${document.getElementById('tax').value}</span></td>
+                </tr>
+                <tr>
+                  <th>Total:</th>
+                  <td><span>${document.getElementById('invoice_total').innerText}</span><span class="subtotal_currency"></span></td>
+                  
+                </tr>
+              </table>
+            </div>
+          </div><!-- /.col -->    
+        </div>
+
               <div class="terms">
           <h5>Terms</h5>
-          <textarea id="10">Payment terms: 100% Upon Delivery.</textarea>
+          <h6>${document.getElementById('terms').value}</h6>
         </div>
         
       </div>
@@ -490,14 +513,15 @@ function printMe(query){
   myframe.parentNode.removeChild(myframe) ;// remove frame
   },0); // wait for images to load inside iframe
   window.focus();
+  return true;
  }
 
 
 
   function Print(divName){
-    document.getElementById(divName).printMe();
-
+    if(document.getElementById(divName).printMe()){
     addinvoice();
+    }
 
 		}
 </script>
