@@ -33,7 +33,7 @@ export class product extends Typegoose{
 
     @instanceMethod
     async invoice(this:InstanceType<product>,quantity:number){
-        if(quantity>0){
+        if(quantity>=0){
             const product = this
             if(product.quantity && product.quantity>= quantity){
                 product.quantity = product.quantity - quantity
@@ -48,7 +48,7 @@ export class product extends Typegoose{
 
     @instanceMethod
     async AddQuantity(this:InstanceType<product>,quantity:number){
-        if(quantity>0){
+        if(quantity>=0){
             const product = this
             if(product.quantity!==undefined){
                 product.quantity = product.quantity + quantity

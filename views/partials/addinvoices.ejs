@@ -448,37 +448,49 @@ const addinvoice=()=>{
     amount,
     date:document.getElementById('invoice-date').value
   }
+  let error = false
   rows.forEach((row) => {
+    if(Number(row.querySelector('#quantity').value) <=0)
+        error = true
     data.cardItems.push(
         {serialNumber:row.querySelector('#serial').selectedOptions[0].textContent,
         quantity : Number(row.querySelector('#quantity').value)}
     )
   });
-  const date = new Date()
-  const today = String(date.getDate()).padStart(2,'0')
-  const month = String(date.getMonth()+1).padStart(2,'0')
-  const year = String(date.getFullYear())
-  const d =year+'-'+month+'-'+today
-  
-  if(d === data.date){
-    const options ={
-      body:JSON.stringify(data),
-      method:'POST',
-      headers:{
-                'Content-Type': 'application/json'
-              }
-    }
-    console.log(options.body);
+
+  if(error){
+    alert('cant add 0 quantity or less')
+  }
+  else{
+    const date = new Date()
+    const today = String(date.getDate()).padStart(2,'0')
+    const month = String(date.getMonth()+1).padStart(2,'0')
+    const year = String(date.getFullYear())
+    const d =year+'-'+month+'-'+today
     
-    fetch('/invoiceee',options).then(res=>res.json().then(res=>{
-      console.log(res)
-      window.location.href = './'
-    }
-    ).catch(error=>alert(error)))
-  }else{
-    alert('Enter valid Date')
-  } 
-  
+    if(d === data.date){
+      const options ={
+        body:JSON.stringify(data),
+        method:'POST',
+        headers:{
+                  'Content-Type': 'application/json'
+                }
+      }
+      console.log(options.body);
+      
+      fetch('/invoiceee',options).then(res=>{
+      if(res.status === 400){
+        res.json().then(res=>alert(res.error))
+      }else{
+      res.json().then(res=>{
+        console.log(res);
+        window.location.href = './'})
+    }})
+    .catch(error=>alert(error))
+    }else{
+      alert('Enter valid Date')
+    } 
+  }
 }
 
  
