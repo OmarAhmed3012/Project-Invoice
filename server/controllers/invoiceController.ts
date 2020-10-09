@@ -72,7 +72,8 @@ export class invoiceController {
                             let productOutOfStock =0
                             if(invoice.items){
                                 const index =invoice.items.findIndex(e=>String(e.productSerial)===String(p._id))
-                                productOutOfStock =Number (invoice.items[index].quantity)
+                                if(index !== -1)
+                                    productOutOfStock =Number (invoice.items[index].quantity)
                                 console.log(3);
                             }
                             console.log('add',Number(p.quantity+productOutOfStock));
