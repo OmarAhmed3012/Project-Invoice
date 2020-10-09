@@ -488,6 +488,7 @@ const addinvoice=async()=>{
 
       const x =await fetch('/invoiceee',options);
     console.log(x);
+    
 
     return x;
 
@@ -542,10 +543,16 @@ const Add = async () =>{
 
 }
 
-  const Print = (divName)=>{
-    if(document.getElementById(divName).printMe()){
-    Add();
-    }
-
-		}
+  const Print = async (divName)=>{
+    const y = await addinvoice();
+      console.log(y.ok);
+      if(y.ok === true){
+        document.getElementById(divName).printMe();
+        console.log('printed');
+        window.location.href = './';
+      }else{
+        alert('somthing went wrong');
+      }
+  
+      }
 </script>
