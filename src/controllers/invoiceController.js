@@ -54,6 +54,13 @@ class invoiceController {
             try {
                 const invoice = yield invoice_1.invoiceModel.findByIdAndDelete(_id);
                 if (invoice) {
+                    if (invoice.items) {
+                        for (let item of invoice.items) {
+                            let product = yield product_1.productModel.findById({ _id: item.productSerial });
+                            if (product)
+                                yield product.AddQuantity(Number(item.quantity));
+                        }
+                    }
                     return res.send({ message: 'invoice Deleted' });
                 }
                 else {
