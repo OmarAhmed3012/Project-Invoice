@@ -43,6 +43,13 @@ export class invoiceController {
         try {
             const invoice =await invoiceModel.findByIdAndDelete(_id)
             if(invoice){
+                if(invoice.items){
+                    for(let item of invoice.items){
+                        let product = await productModel.findById({_id:item.productSerial})
+                        if(product)
+                            await product.AddQuantity(Number(item.quantity))
+                    }
+                }
                 return res.send({message:'invoice Deleted'})
             }else{
                 return res.status(400).send({error:'invoice cant found'})
