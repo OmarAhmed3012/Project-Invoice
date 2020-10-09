@@ -191,7 +191,7 @@ textarea {
       <div class="row">
         <div class="col-xs-12 pull-left">
           <a class="btn btn-info btn-sm" id="invoice_button" onclick="showModel()" data-toggle="modal" data-target="#invoice_modal">Show Invoice</a>
-          <a  type="submit" name="commit" value="Submit Payment" onclick="editInvoice()" class="btn btn btn-warning btn-sm" id="submit_invoice" data-disable-with="Submit Payment">Edit Invoice</a>
+          <a  type="submit" name="commit" value="Submit Payment" onclick="Edit()" class="btn btn btn-warning btn-sm" id="submit_invoice" data-disable-with="Submit Payment">Edit Invoice</a>
         </div>
       </div>
   <div class="terms">
@@ -497,7 +497,16 @@ quantity.forEach(e=>findtotal(e))
     return true;
    }
   
-  
+  const Edit =async () => {
+    const x = await editInvoice();
+
+    if(x.ok === true) {
+      window.location.href = './';
+    } else {
+      alert('somthing went wrong');
+    }
+
+  }
   
     const Print =async (divName) => {
       const x = await editInvoice();

@@ -178,7 +178,7 @@ textarea {
         <div class="row">
           <div class="col-xs-12 pull-left">
             <a class="btn btn-info btn-sm" id="invoice_button" onclick="showModel()" data-toggle="modal" data-target="#invoice_modal">Show Invoice</a>
-            <a  type="submit" name="commit" value="Submit Payment" onclick="addinvoice()" class="btn btn btn-warning btn-sm" id="submit_invoice" data-disable-with="Submit Payment">Add Invoice</a>
+            <a  type="submit" name="commit" value="Submit Payment" onclick="Add()" class="btn btn btn-warning btn-sm" id="submit_invoice" data-disable-with="Submit Payment">Add Invoice</a>
           </div>
         </div>
     <div class="terms">
@@ -528,7 +528,16 @@ function printMe(query){
   return true;
  }
 
+const Add = async () =>{
+  const x = await addinvoice();
 
+    if(x.ok === true) {
+      window.location.href = './';
+    } else {
+      alert('somthing went wrong');
+    }
+
+}
 
   function Print(divName){
     if(document.getElementById(divName).printMe()){
