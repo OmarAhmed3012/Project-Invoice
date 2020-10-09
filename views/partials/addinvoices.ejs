@@ -162,7 +162,7 @@ textarea {
                   <td><span id="subtotal" >875.00</span><span class="subtotal_currency"></span></td>
                 </tr>
                 <tr>
-                  <th>Tax:</th>
+                  <th><input type="checkbox" id="taxcheck" class="inline m-2"/>Tax:</th>
                   <td><input id="tax" disabled onchange="totalInvoice()" class="form-control" value="0.00" /></td>
                 </tr>
                 <tr>
@@ -280,7 +280,11 @@ textarea {
     const subTotal = document.getElementById('subtotal')  
     subTotal.textContent = sum
     const tax = document.getElementById('tax')
-    tax.value = (Number(subTotal.textContent) * 0.14).toFixed(2)
+    if(document.getElementById('taxcheck').checked){
+      tax.value = 0
+    }else {
+      tax.value = (Number(subTotal.textContent) * 0.14).toFixed(2)
+    }
     const total_invoice = document.getElementById('invoice_total')
     total_invoice.textContent = sum + Number(tax.value)
     const total_invoice2 = document.getElementById('invoice_total2')

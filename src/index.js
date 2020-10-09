@@ -24,6 +24,7 @@ const app = express_1.default();
 app.use(express_1.default.json());
 const port = process.env.PORT || 3000;
 app.use(express_ejs_layouts_1.default);
+app.use(express_1.default.static(path_1.default.join(__dirname, '../public')));
 app.set('view engine', 'ejs');
 app.use(productRouter_1.productRouter);
 app.use(invoiceRouter_1.invoiceRouter);

@@ -11,6 +11,7 @@ const app = express();
 app.use(express.json())
 const port = process.env.PORT || 3000;
 app.use(expressLayouts)
+app.use(express.static(path.join(__dirname, '../public')));
 app.set('view engine', 'ejs');
 app.use(productRouter)
 app.use(invoiceRouter)
