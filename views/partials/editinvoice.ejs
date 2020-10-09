@@ -27,6 +27,10 @@ textarea {
   box-sizing: border-box;
 }
 
+.invoice-info {
+  width: 100%;
+}
+
   </style>
 
 <div class="container">
@@ -192,7 +196,7 @@ textarea {
       </div>
   <div class="terms">
         <h5>Terms</h5>
-        <textarea id="10">Payment terms: 100% Upon Delivery.</textarea>
+        <textarea id="terms">Payment terms: 100% Upon Delivery.</textarea>
       </div>
       
     </div>
@@ -202,10 +206,10 @@ textarea {
   <div class="modal" id="invoice_modal">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-          <div class="container-fluid invoice_wrapper" id="print-me">
+          <div class="container-fluid invoice_wrapper p-5" id="print-me">
           </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="printDiv('print-me')">Print</button>
+          <button type="button" class="btn btn-primary" onclick="Print('print-me')">Print</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -306,73 +310,96 @@ const showModel = ()=>{
  const model = document.getElementById('invoice_modal')
  const print = document.querySelector('#print-me')
  print.innerHTML = `
- <div id="invoice-wrap">
-      
-      <div class="row">
-        <div class="col-xs-12">
-          <h3 class="page-header">INVOICE</h3>
+   <div id="invoice-wrap">
+        
+        <div class="row">
+          <div class="col-xs-12">
+            <h3 class="page-header">INVOICE</h3>
+          </div>
         </div>
+    
+        <div class="row invoice-info">
+          <div class="col-xs-4 invoice-col">
+            <label>From</label>
+            <address>
+             <p> ${document.getElementById(1).value}</p>
+             <p> ${document.getElementById(2).value}</p>
+             <p> ${document.getElementById(3).value} </p>
+             <p> ${document.getElementById(4).value}</p>
+            </address>
+          </div>
+          <div class="col-xs-4 invoice-col">
+            <label>To</label>
+            <address>
+              <p> ${document.getElementById(5).value}</p>
+              <p> ${document.getElementById(6).value}</p>
+              <p> ${document.getElementById(7).value}</p>
+              <p> ${document.getElementById(8).value}</p>
+            </address>
+          </div>
+          <div class="col-xs-4 invoice-col ">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <div ><label>Invoice:</label></div>
+                <div invoice_num"><span id="invoice_number"> 44 </span></div>
+              </div>
+              <div class="form-group">
+                <div ><label>date</label></div>
+                <div >${document.getElementById('invoice-date').value}</div>
+              </div>
+              <div class="form-group">
+                <div class="col-xs-5 invoice_space"><label>Amount due</label></div>
+                <div class="col-xs-7 invoice_space bold">${document.getElementById('invoice_total').textContent}</span></div>
+              </div>
+            </form>
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="col-xs-12 table-responsive">
+            <hr>
+            <table border="1" style="text-align: center; vertical-align:middle; width:100%;"  id="items">
+              <thead>
+                  <th class="item-name" style="padding:5px">Item</th>
+                  <th class="description">Serial Number</th>
+                  <th class="unit">Unit Cost</th>
+                  <th class="quantity">Quantity</th>
+                  <th class="units">Price</th>
+              </thead>
+              <tbody>${getTableInfo()}<tbody>
+              </table>
+              </div>
+
+              <div class="row">
+          <div class="col-xs-6 col-xs-offset-6">
+            <div class="table-responsive">
+              <table class="table table-hover" id="totals">
+                <tr>
+                  <th style="width:50%">Subtotal:</th>
+                  <td><span>${document.getElementById('subtotal').innerText}</span><span class="subtotal_currency"></span></td>
+                </tr>
+                <tr>
+                  <th>Tax:</th>
+                  <td><span>${document.getElementById('tax').value}</span></td>
+                </tr>
+                <tr>
+                  <th>Total:</th>
+                  <td><span>${document.getElementById('invoice_total').innerText}</span><span class="subtotal_currency"></span></td>
+                  
+                </tr>
+              </table>
+            </div>
+          </div><!-- /.col -->    
+        </div>
+
+              <div class="terms">
+          <h5>Terms</h5>
+          <h6>${document.getElementById('terms').value}</h6>
+        </div>
+        
       </div>
-  
-      <div class="row invoice-info">
-        <div class="col-xs-4 invoice-col">
-          <label>From</label>
-          <address>
-           <p> ${document.getElementById(1).value}</p>
-           <p> ${document.getElementById(2).value}</p>
-           <p> ${document.getElementById(3).value} </p>
-           <p> ${document.getElementById(4).value}</p>
-          </address>
-        </div>
-        <div class="col-xs-4 invoice-col">
-          <label>To</label>
-          <address>
-            <p> ${document.getElementById(5).value}</p>
-            <p> ${document.getElementById(6).value}</p>
-            <p> ${document.getElementById(7).value}</p>
-            <p> ${document.getElementById(8).value}</p>
-          </address>
-        </div>
-        <div class="col-xs-4 invoice-col ">
-          <form class="form-horizontal">
-            <div class="form-group">
-              <div ><label>Invoice:</label></div>
-              <div invoice_num"><span id="invoice_number"> 44 </span></div>
-            </div>
-            <div class="form-group">
-              <div ><label>date</label></div>
-              <div >${document.getElementById('invoice-date').value}</div>
-            </div>
-            <div class="form-group">
-              <div class="col-xs-5 invoice_space"><label>Amount due</label></div>
-              <div class="col-xs-7 invoice_space bold">${document.getElementById('invoice_total').textContent}</span></div>
-            </div>
-          </form>
-        </div>
-      </div>
-  
-      <div class="row">
-        <div class="col-xs-12 table-responsive">
-          <hr>
-          <table border="1" style="text-align: center; vertical-align:middle; width:100%;"  id="items">
-            <thead>
-                <th class="item-name" style="padding:5px">Item</th>
-                <th class="description">Serial Number</th>
-                <th class="unit">Unit Cost</th>
-                <th class="quantity">Quantity</th>
-                <th class="units">Price</th>
-            </thead>
-            <tbody>${getTableInfo()}<tbody>
-            </table>
-            </div>
-            <div class="terms">
-        <h5>Terms</h5>
-        <textarea id="10">Payment terms: 100% Upon Delivery.</textarea>
-      </div>
-      
-    </div>
- 
- `
+   
+   `
 }
 
 const getTableInfo =()=>{
@@ -396,23 +423,7 @@ const getTableInfo =()=>{
  
 }
 
-const printDiv = ()=>{
- const print = document.getElementById('print-me')
- console.log('PDF printed');
- 
-//    const PDF = new jsPDF()
-//    PDF.fromHTML(
-//     print,
-//     15,
-//     15,{
-//         'width':180,'elementHandlers':elementHandlers
-//     }
-// )
-// window.open(PDF.output('datauristring'))
-//    console.log(print);
-}
-
-const editInvoice=()=>{
+const editInvoice= async ()=>{
   
   const rows = document.querySelectorAll('#row')
   const amount = document.getElementById('invoice_total').textContent
@@ -444,15 +455,10 @@ const editInvoice=()=>{
     }
     console.log(options.body);
     
-    fetch('/invoice',options).then(res=>{
-      if(res.status === 400){
-        res.json().then(res=>alert(res.error))
-      }else{
-      res.json().then(res=>{
-        console.log(res);
-        window.location.href = './'})
-    }})
-    .catch(error=>alert(error))
+    const x =await fetch('/invoice',options);
+    console.log(x);
+
+    return x;
   }
 }
 
@@ -470,3 +476,38 @@ findtotal(price)
 const quantity = document.querySelectorAll('#quantity')
 quantity.forEach(e=>findtotal(e))
 </script>
+
+
+<script>
+
+  HTMLElement.prototype.printMe = printMe;
+  function printMe(query){
+    var myframe = document.createElement('IFRAME');
+    myframe.domain = document.domain;
+    myframe.style.position = "absolute";
+    myframe.style.top = "-10000px";
+    document.body.appendChild(myframe);
+    myframe.contentDocument.write(this.innerHTML) ;
+    setTimeout(function(){
+    myframe.focus();
+    myframe.contentWindow.print();
+    myframe.parentNode.removeChild(myframe) ;// remove frame
+    },0); // wait for images to load inside iframe
+    window.focus();
+    return true;
+   }
+  
+  
+  
+    const Print =async (divName) => {
+      const x = await editInvoice();
+      console.log(x.ok);
+      if(x.ok === true){
+        document.getElementById(divName).printMe();
+        console.log('printed');
+      }else{
+        alert('check the quantity');
+      }
+  
+      }
+  </script>

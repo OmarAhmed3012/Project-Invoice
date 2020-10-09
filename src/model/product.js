@@ -23,7 +23,7 @@ const typegoose_1 = require("typegoose");
 class product extends typegoose_1.Typegoose {
     invoice(quantity) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (quantity > 0) {
+            if (quantity >= 0) {
                 const product = this;
                 if (product.quantity && product.quantity >= quantity) {
                     product.quantity = product.quantity - quantity;
@@ -39,7 +39,7 @@ class product extends typegoose_1.Typegoose {
     }
     AddQuantity(quantity) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (quantity > 0) {
+            if (quantity >= 0) {
                 const product = this;
                 if (product.quantity !== undefined) {
                     product.quantity = product.quantity + quantity;
