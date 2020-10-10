@@ -33,7 +33,7 @@ export class invoiceController {
             
             
         } catch (error) {
-            res.json({error})
+            res.status(400).json({error:'address is required'})
         }
      
     }

@@ -165,7 +165,7 @@ textarea {
                   <td><span id="subtotal" >875.00</span><span class="subtotal_currency"></span></td>
                 </tr>
                 <tr>
-                  <th><input type="checkbox" id="taxcheck" class="inline m-2"/>Tax:</th>
+                  <th><input type="checkbox" id="taxcheck" checked onchange="clcTax(this)" class="inline m-2"/>Tax:</th>
                   <td><input id="tax" disabled onchange="totalInvoice()" class="form-control" value="0.00" /></td>
                 </tr>
                 <tr>
@@ -181,7 +181,7 @@ textarea {
         <div class="row">
           <div class="col-xs-12 pull-left">
             <a class="btn btn-info btn-sm" id="invoice_button" onclick="showModel()" data-toggle="modal" data-target="#invoice_modal">Show Invoice</a>
-            <a  type="submit" name="commit" value="Submit Payment" onclick="Add()" class="btn btn btn-warning btn-sm" id="submit_invoice" data-disable-with="Submit Payment">Add Invoice</a>
+            <a  type="submit" name="commit" value="Submit Payment" onclick="addinvoice(false)" class="btn btn btn-warning btn-sm" id="submit_invoice" data-disable-with="Submit Payment">Add Invoice</a>
           </div>
         </div>
     <div class="terms">
@@ -199,7 +199,7 @@ textarea {
             <div class="container-fluid invoice_wrapper p-5" id="print-me">
             </div>
           <div class="modal-footer">
-            <button id="Printing" type="button" class="btn btn-primary" onclick="Print('print-me')" >Print</button>
+            <button id="Printing" type="button" class="btn btn-primary" onclick="addinvoice(true)" >Print</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
@@ -209,6 +209,16 @@ textarea {
 
 <script type="text/javascript">
 
+  const clcTax = (checkBox)=>{
+     const tax = document.getElementById('tax')
+     if(!checkBox.checked){
+        tax.value = 0
+     }else{
+        const subTotal = document.getElementById('subtotal')  
+        tax.value = (Number(subTotal.textContent) * 0.14).toFixed(2)
+      }
+      totalInvoice()
+  } 
 
   const deleteRow= (btn)=>{
           if (confirm("are you sure to delete row")) {
@@ -283,7 +293,7 @@ textarea {
     const subTotal = document.getElementById('subtotal')  
     subTotal.textContent = sum
     const tax = document.getElementById('tax')
-    if(document.getElementById('taxcheck').checked){
+    if(!document.getElementById('taxcheck').checked){
       tax.value = 0
     }else {
       tax.value = (Number(subTotal.textContent) * 0.14).toFixed(2)
@@ -435,7 +445,9 @@ textarea {
 //    console.log(print);
  }
 
-const addinvoice=async()=>{
+const addinvoice=async(print)=>{
+  console.log(print);
+  
   const rows = document.querySelectorAll('#row')
   const amount = document.getElementById('invoice_total').textContent
   const data = {
@@ -486,14 +498,24 @@ const addinvoice=async()=>{
       console.log(options.body);
       
 
-      const x =await fetch('/invoiceee',options);
-    console.log(x);
-    
-
-    return x;
+      fetch('/invoiceee',options).then(res=>{
+        if(res.status === 400){
+          res.json().then(res=>{alert(res.error)})
+        }else{
+          if(print){
+            Print('print-me')
+          }else{
+            window.location.href = './'
+          }
+        }
+      }).catch(e=>{alert(e)})
 
       
-}}}
+  }else{
+    alert('enter vaild Date')
+  } 
+  }
+}
 
  
  const changeSerial=(product)=>{
@@ -531,7 +553,9 @@ function printMe(query){
  }
 
 const Add = async () =>{
-  const x = await addinvoice();
+  const x =await  addinvoice().then(res=>{console.log(res);
+  }).catch(e=>{console.log(e)}
+  );
 
   console.log(x);
     if(x.ok === true) {
@@ -544,15 +568,15 @@ const Add = async () =>{
 }
 
   const Print = async (divName)=>{
-    const y = await addinvoice();
-      console.log(y.ok);
-      if(y.ok === true){
+  //   const y = await addinvoice();
+  //     console.log(y.ok);
+  //     if(y.ok === true){
         document.getElementById(divName).printMe();
         console.log('printed');
         window.location.href = './';
-      }else{
-        alert('somthing went wrong');
-      }
+      // }else{
+      //   alert('somthing went wrong');
+      // }
   
       }
 </script>
