@@ -44,7 +44,7 @@ class invoiceController {
                 return res.status(400).json({ error: 'loss Data' });
             }
             catch (error) {
-                res.json({ error });
+                res.status(400).json({ error: 'address is required' });
             }
         });
     }

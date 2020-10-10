@@ -178,7 +178,7 @@ textarea {
                 <td><span id="subtotal" >875.00</span><span class="subtotal_currency"></span></td>
               </tr>
               <tr>
-                <th>Tax:</th>
+                <th><input type="checkbox" id="taxcheck" checked onchange="clcTax(this)" class="inline m-2"/>Tax:</th>
                 <td><input id="tax" disabled onchange="totalInvoice()" class="form-control" value="0.00" /></td>
               </tr>
               <tr>
@@ -221,6 +221,20 @@ textarea {
 </div>
 
 <script>
+
+const clcTax = (checkBox)=>{
+
+     const tax = document.getElementById('tax')
+     if(!checkBox.checked){
+        tax.value = 0
+     }else{
+        const subTotal = document.getElementById('subtotal')  
+        tax.value = (Number(subTotal.textContent) * 0.14).toFixed(2)
+      }
+      totalInvoice()
+  } 
+
+
 const deleteRow= (btn)=>{
         if (confirm("are you sure to delete row")) {
           const tr = btn.parentNode.parentNode
@@ -294,7 +308,32 @@ const findtotal = (input)=>{
   const subTotal = document.getElementById('subtotal')  
   subTotal.textContent = sum
   const tax = document.getElementById('tax')
-  tax.value = (Number(subTotal.textContent) * 0.14).toFixed(2)
+
+
+  const checkTax = () => {
+  const amount = "<%= invoice.amount %>";
+  const subtotal = document.getElementById('subtotal').textContent
+  console.log("AMOUNT"+amount , subtotal)
+  if(parseInt(amount) > subtotal){
+    console.log('checked')
+    document.getElementById('taxcheck').checked = true
+  } else{
+    console.log('unchecked')
+    document.getElementById('taxcheck').checked = false
+  }
+}
+
+
+      checkTax()
+
+
+
+
+  if(!document.getElementById('taxcheck').checked){
+      tax.value = 0
+    }else {
+      tax.value = (Number(subTotal.textContent) * 0.14).toFixed(2)
+    }
   const total_invoice = document.getElementById('invoice_total')
   total_invoice.textContent = sum + Number(tax.value)
   const total_invoice2 = document.getElementById('invoice_total2')
@@ -426,7 +465,7 @@ const getTableInfo =()=>{
  
 }
 
-const editInvoice= async ()=>{
+const editInvoice= async (print)=>{
   
   const rows = document.querySelectorAll('#row')
   const amount = document.getElementById('invoice_total').textContent
@@ -458,10 +497,17 @@ const editInvoice= async ()=>{
     }
     console.log(options.body);
     
-    const x =await fetch('/invoice',options);
-    console.log(x);
-
-    return x;
+    fetch('/invoice',options).then(res=>{
+        if(res.status === 400){
+          res.json().then(res=>{alert(res.error)})
+        }else{
+          if(print){
+            Print('print-me')
+          }else{
+            window.location.href = './'
+          }
+        }
+      }).catch(e=>{alert(e)})
   }
 }
 
@@ -501,9 +547,13 @@ quantity.forEach(e=>findtotal(e))
    }
   
   const Edit =async () => {
-    const x = await editInvoice();
+    const x =await  editInvoice().then(res=>{console.log(res);
+  }).catch(e=>{console.log(e)}
+  );
 
+  console.log(x);
     if(x.ok === true) {
+      
       window.location.href = './';
     } else {
       alert('somthing went wrong');
@@ -512,15 +562,11 @@ quantity.forEach(e=>findtotal(e))
   }
   
     const Print =async (divName) => {
-      const x = await editInvoice();
-      console.log(x.ok);
-      if(x.ok === true){
-        document.getElementById(divName).printMe();
+      document.getElementById(divName).printMe();
         console.log('printed');
-        window.location.href = './';
-      }else{
-        alert('check the quantity');
+        window.location.href = './';  
       }
-  
-      }
+
+      
+
   </script>

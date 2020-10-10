@@ -429,21 +429,6 @@ textarea {
    
  }
 
- const printDiv = ()=>{
-   const print = document.getElementById('print-me')
-   console.log('PDF printed');
-   
-//    const PDF = new jsPDF()
-//    PDF.fromHTML(
-//     print,
-//     15,
-//     15,{
-//         'width':180,'elementHandlers':elementHandlers
-//     }
-// )
-// window.open(PDF.output('datauristring'))
-//    console.log(print);
- }
 
 const addinvoice=async(print)=>{
   console.log(print);
@@ -533,6 +518,8 @@ const addinvoice=async(print)=>{
  
 </script>
 
+
+
 <script>
 
 HTMLElement.prototype.printMe = printMe;
@@ -568,15 +555,12 @@ const Add = async () =>{
 }
 
   const Print = async (divName)=>{
-  //   const y = await addinvoice();
-  //     console.log(y.ok);
-  //     if(y.ok === true){
+  
         document.getElementById(divName).printMe();
         console.log('printed');
         window.location.href = './';
-      // }else{
-      //   alert('somthing went wrong');
-      // }
+
+       
   
       }
 </script>
