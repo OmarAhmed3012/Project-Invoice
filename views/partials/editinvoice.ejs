@@ -194,7 +194,7 @@ textarea {
       <div class="row">
         <div class="col-xs-12 pull-left">
           <a class="btn btn-info btn-sm" id="invoice_button" onclick="showModel()" data-toggle="modal" data-target="#invoice_modal">Show Invoice</a>
-          <a  type="submit" name="commit" value="Submit Payment" onclick="Edit()" class="btn btn btn-warning btn-sm" id="submit_invoice" data-disable-with="Submit Payment">Edit Invoice</a>
+          <a  type="submit" name="commit" value="Submit Payment" onclick="editInvoice(false)" class="btn btn btn-warning btn-sm" id="submit_invoice" data-disable-with="Submit Payment">Edit Invoice</a>
         </div>
       </div>
   <div class="terms">
@@ -212,7 +212,7 @@ textarea {
           <div class="container-fluid invoice_wrapper p-5" id="print-me">
           </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="Print('#print-me')">Print</button>
+          <button type="button" class="btn btn-primary" onclick="editInvoice(true)">Print</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -502,6 +502,8 @@ const editInvoice= async (print)=>{
           res.json().then(res=>{alert(res.error)})
         }else{
           if(print){
+            console.log(res.status);
+            
             Print('print-me')
           }else{
             window.location.href = './'
@@ -546,28 +548,7 @@ quantity.forEach(e=>findtotal(e))
     return true;
    }
   
-  const Edit =async () => {
-    const x =await  editInvoice().then(res=>{console.log(res);
-  }).catch(e=>{console.log(e)}
-  );
-
-  console.log(x);
-    if(x.ok === true) {
-      
-      window.location.href = './';
-    } else {
-      alert('somthing went wrong');
-    }
-
-  }
   
-    /*const Print =async (divName) => {
-      document.getElementById(divName).printMe();
-        console.log('printed');
-        window.location.href = './';  
-      }*/
-
-      
       function Print(elem)
     {
         Popup($(elem).html());
@@ -631,7 +612,7 @@ textarea {
 
         mywindow.print();
         mywindow.close();
-
+        window.location.href = './'
         return true;
     }
 

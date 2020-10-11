@@ -540,28 +540,6 @@ function printMe(query){
   return true;
  }
 
-const Add = async () =>{
-  const x =await  addinvoice().then(res=>{console.log(res);
-  }).catch(e=>{console.log(e)}
-  );
-
-  console.log(x);
-    if(x.ok === true) {
-      
-      window.location.href = './';
-    } else {
-      alert('somthing went wrong');
-    }
-
-}
-
-  /*const Print = async (divName)=>{
-  
-        document.getElementById(divName).printMe();
-        console.log('printed');
-        window.location.href = './';
-      }*/
-
 
       function Print(elem)
     {
@@ -626,7 +604,7 @@ textarea {
 
         mywindow.print();
         mywindow.close();
-
+        window.location.href = './'
         return true;
     }
 </script>
