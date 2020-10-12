@@ -127,6 +127,17 @@ textarea {
                     
                     
                 </td>
+
+                <td>
+                  <select name="pid[]" disabled id="model" class="form-control item_name form-control-lg" value="Item #1" required>
+                      
+                    <% for(product of products){%>
+                      <option><%=product.model%></option>
+                      <%}%>
+                  </select>
+                  
+                  
+              </td>
   
                 <td>
                     <select name="pid[]" disabled id="serial" class="form-control item_desc form-control-lg" value="Description" required>
@@ -262,6 +273,16 @@ div.innerHTML = `<tr class="item-row">
                     
                     
                 </td>
+
+                <td>
+                      <select name="pid[]" id="model" disabled class="form-control item_desc form-control-lg" value="Description" required>
+                        <% for(product of products){%>
+                          <option><%=product.model%></option>
+                          <%}%>
+    
+                      </select>
+              
+                  </td>
   
                 <td>
                     <select name="pid[]" id="serial" disabled class="form-control item_desc form-control-lg" value="Description" required>
@@ -403,6 +424,7 @@ const showModel = ()=>{
             <table border="1" style="text-align: center; vertical-align:middle; width:100%;"  id="items">
               <thead>
                   <th class="item-name" style="padding:5px">Item</th>
+                  <th class="item-name" style="padding:5px">Model</th>
                   <th class="description">Serial Number</th>
                   <th class="unit">Unit Cost</th>
                   <th class="quantity">Quantity</th>
@@ -453,6 +475,7 @@ const getTableInfo =()=>{
   if(row.style.display !== 'none'){
   s = s + `<tr>
             <td>${row.querySelector('#product').selectedOptions[0].textContent}</td>
+            <td>${row.querySelector('#model').selectedOptions[0].textContent}</td>
             <td>${row.querySelector('#serial').selectedOptions[0].textContent}</td>
             <td>${row.querySelector('#price').selectedOptions[0].textContent}</td>
             <td>${row.querySelector('#quantity').value}</td>
@@ -519,6 +542,8 @@ const row = product.parentNode.parentNode
 const serial = row.querySelector('#serial')
 serial.selectedIndex = product.selectedIndex
 console.log( product.selectedIndex);
+const model = row.querySelector('#model')
+  model.selectedIndex = product.selectedIndex
 const price = row.querySelector('#price')
 price.selectedIndex = product.selectedIndex
 console.log("price is"+price)

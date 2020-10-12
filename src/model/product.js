@@ -63,6 +63,13 @@ __decorate([
 ], product.prototype, "name", void 0);
 __decorate([
     typegoose_1.prop({
+        required: true,
+        trim: true
+    }),
+    __metadata("design:type", String)
+], product.prototype, "model", void 0);
+__decorate([
+    typegoose_1.prop({
         required: true
     }),
     __metadata("design:type", Number)

@@ -18,11 +18,11 @@ class productController {
             try {
                 console.log(req.query);
                 console.log(req.body);
-                let { name, price, quantity, serialNumber, sellPrice } = req.body;
+                let { name, model, price, quantity, serialNumber, sellPrice } = req.body;
                 if (!quantity) {
                     quantity = 0;
                 }
-                const product = new product_1.productModel({ name, price, sellPrice, serialNumber, quantity });
+                const product = new product_1.productModel({ name, model, price, sellPrice, serialNumber, quantity });
                 yield product.save();
                 res.send(product);
             }

@@ -7,11 +7,11 @@ export class productController {
         try{
             console.log(req.query);
             console.log(req.body);
-            let {name,price,quantity,serialNumber,sellPrice} :{name:string,price:number,quantity:number,serialNumber:string,sellPrice:number} = req.body
+            let {name,model,price,quantity,serialNumber,sellPrice} :{name:string,model:string,price:number,quantity:number,serialNumber:string,sellPrice:number} = req.body
             if(!quantity){
                 quantity = 0
             }
-            const product = new productModel({name,price,sellPrice,serialNumber,quantity})
+            const product = new productModel({name,model,price,sellPrice,serialNumber,quantity})
             await product.save()
             res.send(product)
         }

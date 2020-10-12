@@ -10,6 +10,12 @@ export class product extends Typegoose{
     name?:string 
 
     @prop({
+        required:true,
+        trim:true
+    })
+    model?:string 
+
+    @prop({
         required:true
     })
     price?:number

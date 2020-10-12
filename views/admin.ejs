@@ -30,6 +30,7 @@
                     e.preventDefault()
                     const data = {
                         name :e.target.elements.name.value,
+                        model :e.target.elements.model.value,
                         price:e.target.elements.price.value,
                         quantity:e.target.elements.quantity.value,
                         serialNumber:e.target.elements.serialNumber.value,
@@ -50,6 +51,7 @@
                         res.json()
                         console.log(res)
                         e.target.elements.name.value = ''
+                        e.target.elements.model.value = ''
                         e.target.elements.price.value=''
                         e.target.elements.quantity.value=''
                         e.target.elements.serialNumber.value = ''
