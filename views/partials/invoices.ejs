@@ -7,6 +7,7 @@
         <table class="table table-striped table-hover table-dark">
             <thead>
               <tr>
+                <th>Number</th>
                 <th scope="col">Company</th>
                 <th scope="col">Contragent</th>
                 <th scope="col">Amount</th>
@@ -19,14 +20,15 @@
             <tbody>
               <%for(invoice of invoices){%>
               <tr id=<%=invoice._id%>>
+                <td><%=invoice.invoiceNumber%></td>
                 <td><%=invoice.from.company%></td>
                 <td><%=invoice.to.company%></td>
                 <td><%=invoice.amount%> E.G.P</td>
                 <td><%=invoice.date%></td>
                 <td>
-                  <button type="button" onclick="show(this)" class="btn btn-secondary">Show</button></td>
-                <td><a href="/editinvoice?_id=<%=invoice._id%>" class="btn btn-primary">Edit</a></td>
-                <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">Distroy</button></td>
+                  <button type="button" onclick="show(this,'<%=invoice.date%>')" class="btn btn-secondary">Show</button></td>
+                <td><a  onclick="Edit('<%=invoice._id%>','<%=invoice.date%>')" class="btn btn-primary">Edit</a></td>
+                <td><button type="button" class="btn btn-danger" onclick="deleteRow(this,'<%=invoice.date%>')">Distroy</button></td>
               </tr>
               <%}%>
             </tbody>
@@ -35,45 +37,75 @@
 
 
     <script>
-        const show = (btn)=>{
-          const tr =btn.parentNode.parentNode
-          const _id = tr.id
-          const Company=tr.children[0].textContent
-          const Contragent = tr.children[1].textContent
-          const Amount = tr.children[2].textContent
-          const d = tr.children[3].textContent.toString()
-          console.log(Company);
-          
-          window.location.href = `/show?company=${Company}&contragent=${Contragent}&amount=${Amount}&data=${d}&_id=${_id}`
+        const show = (btn,date)=>{
+          if(DateExpire(date)){
+            const tr =btn.parentNode.parentNode
+            const _id = tr.id
+            const Company=tr.children[0].textContent
+            const Contragent = tr.children[1].textContent
+            const Amount = tr.children[2].textContent
+            const d = tr.children[3].textContent.toString()
+            console.log(Company);
+            
+            window.location.href = `/show?company=${Company}&contragent=${Contragent}&amount=${Amount}&data=${d}&_id=${_id}`
+        
+          } else{
+            alert('you cant delete or edit invoice After 14 Days')
+          }
         }
         
-  const deleteRow= (btn)=>{
-    if (confirm("are you sure to delete invoice")) {
-      const tr = btn.parentNode.parentNode
-      console.log(tr);
-      
-      const data = {
-        _id:tr.id
-      }
-      console.log(tr.id);
-      console.log(data._id);
-      
-      
-      const options = {
-        body:JSON.stringify(data),
-        method:'delete',
-        headers:{'Content-Type': 'application/json'}
-      }
-      fetch('/invoice',options).then(req=>{
-        if(req.status ===400){
-          return alert('Server Error')
+  const deleteRow= (btn,date)=>{
+    if(DateExpire(date)){
+      if (confirm("are you sure to delete invoice")) {
+        const tr = btn.parentNode.parentNode
+        console.log(tr);
+        
+        const data = {
+          _id:tr.id
         }
-        tr.style.display ='none'     
-      }).catch(error=>alert(error))
-      
+        console.log(tr.id);
+        console.log(data._id);
+        
+        
+        const options = {
+          body:JSON.stringify(data),
+          method:'delete',
+          headers:{'Content-Type': 'application/json'}
+        }
+        fetch('/invoice',options).then(req=>{
+          if(req.status ===400){
+            return alert('Server Error')
+          }
+          tr.style.display ='none'     
+        }).catch(error=>alert(error))
+        
 
-      
-      } 
+        
+        } else{
+
+        }
+    }else{
+      alert('you cant delete or edit invoice After 14 Days')
+    }
   }
 
-    </script>
+  const DateExpire = (InvoiceDate)=>{
+    const invoiceDate = new Date(InvoiceDate)
+    const now = new Date()
+    const today = String(now.getDate()).padStart(2,'0')
+    const month = String(now.getMonth()+1).padStart(2,'0')
+    const year = String(now.getFullYear())
+    const DateNow =new Date(year+'-'+month+'-'+today)
+    const diffTime = Math.abs(DateNow-invoiceDate)
+    const diffDay = Math.ceil(diffTime/(1000*60*60*24))
+    return (diffDay<=14)
+  }
+
+  const Edit=(id,date)=>{
+    if(DateExpire(date)){
+      window.location.href =`/editinvoice?_id=${id}`
+    }else{
+      alert("you cant delete or edit invoice After 14 Days")
+    }
+  }
+</script>

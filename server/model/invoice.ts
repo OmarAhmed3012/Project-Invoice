@@ -30,6 +30,9 @@ class Invoice extends Typegoose{
     @prop({required:true,min:0})
     amount?:Number
 
+    @prop({required:true,unique:true})
+    invoiceNumber?:Number
+
     @arrayProp({items:item})
     items?:item[]
 

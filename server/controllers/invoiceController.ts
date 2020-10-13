@@ -4,7 +4,7 @@ import {productModel,product} from "../model/product"
 export class invoiceController {
     public async addInvoice(req:Request,res:Response){
         try {
-            const {from,to,cardItems,amount,date}:{from:address,to:address,amount:Number,date:string
+            const {from,to,cardItems,amount,date,invoiceNumber}:{from:address,to:address,amount:Number,date:string,invoiceNumber:Number
                 cardItems:{serialNumber:string, quantity:Number}[]}=req.body
             if(from&&to&&cardItems){
             let items = []
@@ -25,7 +25,7 @@ export class invoiceController {
             for(let product of items ){
                 await product.productSerial.invoice(Number(product.quantity))
             }
-            const invoice =  new invoiceModel({from,to,items,amount,date} as Partial<product>)
+            const invoice =  new invoiceModel({from,to,items,amount,date,invoiceNumber} as Partial<product>)
             await invoice.save()
             return res.send({invoice})
         }
