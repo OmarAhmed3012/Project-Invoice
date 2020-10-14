@@ -49,6 +49,10 @@ __decorate([
     __metadata("design:type", Number)
 ], Invoice.prototype, "amount", void 0);
 __decorate([
+    typegoose_1.prop({ required: true, unique: true }),
+    __metadata("design:type", Number)
+], Invoice.prototype, "invoiceNumber", void 0);
+__decorate([
     typegoose_1.arrayProp({ items: item }),
     __metadata("design:type", Array)
 ], Invoice.prototype, "items", void 0);

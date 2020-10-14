@@ -16,7 +16,7 @@ class invoiceController {
     addInvoice(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { from, to, cardItems, amount, date } = req.body;
+                const { from, to, cardItems, amount, date, invoiceNumber } = req.body;
                 if (from && to && cardItems) {
                     let items = [];
                     for (let product of cardItems) {
@@ -37,7 +37,7 @@ class invoiceController {
                     for (let product of items) {
                         yield product.productSerial.invoice(Number(product.quantity));
                     }
-                    const invoice = new invoice_1.invoiceModel({ from, to, items, amount, date });
+                    const invoice = new invoice_1.invoiceModel({ from, to, items, amount, date, invoiceNumber });
                     yield invoice.save();
                     return res.send({ invoice });
                 }
