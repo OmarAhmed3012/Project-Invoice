@@ -34,12 +34,12 @@ app.get('', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.render('index.ejs', { invoices });
 }));
 app.get('/admin', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const products = yield product_1.productModel.find({}).sort({ model: 1 });
+    const products = yield product_1.productModel.find({}).sort({ name: 1 });
     console.log(products);
     res.render('admin', { products });
 }));
 app.get('/addinvoice', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const products = yield product_1.productModel.find({}).sort({ model: 1 });
+    const products = yield product_1.productModel.find({}).sort({ name: 1 });
     res.render('addinvoice', { products });
 }));
 app.get('/editinvoice', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -48,7 +48,7 @@ app.get('/editinvoice', (req, res) => __awaiter(void 0, void 0, void 0, function
         const invoice = yield invoice_1.invoiceModel.findById({ _id }).populate('items').exec();
         if (!invoice)
             return res.send('<h1>404 Page Not found</h1>');
-        const products = yield product_1.productModel.find({}).sort({ model: 1 });
+        const products = yield product_1.productModel.find({}).sort({ name: 1 });
         res.render('editinvoice', { products, invoice });
     }
     catch (e) {
@@ -67,7 +67,7 @@ app.get('/show', (req, res) => {
     });
 });
 app.get('/stock', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const products = yield product_1.productModel.find({}).sort({ model: 1 });
+    const products = yield product_1.productModel.find({}).sort({ name: 1 });
     res.render('stock', { products });
 }));
 app.listen(port, () => {

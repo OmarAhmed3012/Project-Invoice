@@ -24,13 +24,13 @@ app.get('',async (req, res) => {
 });
 
 app.get('/admin', async(req, res) => {
-    const products = await productModel.find({}).sort({model:1})
+    const products = await productModel.find({}).sort({name:1})
     console.log(products);
     
     res.render('admin',{products});
 })
 app.get('/addinvoice', async(req, res) => {
-    const products = await productModel.find({}).sort({model:1})
+    const products = await productModel.find({}).sort({name:1})
     res.render('addinvoice',{products});
 })
 
@@ -40,7 +40,7 @@ app.get('/editinvoice', async(req, res) => {
     const invoice = await invoiceModel.findById({_id}).populate('items').exec()
     if(!invoice)
         return res.send('<h1>404 Page Not found</h1>')
-    const products = await productModel.find({}).sort({model:1})
+    const products = await productModel.find({}).sort({name:1})
     res.render('editinvoice',{products,invoice});
     }catch(e){
         console.log(e.message);
@@ -62,7 +62,7 @@ app.get('/show',(req,res)=>{
 
 app.get('/stock',async(req,res)=>{
     
-    const products = await productModel.find({}).sort({model:1})
+    const products = await productModel.find({}).sort({name:1})
     res.render('stock',{products}) 
 })
 
