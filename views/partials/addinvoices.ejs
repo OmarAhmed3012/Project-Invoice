@@ -16,7 +16,8 @@ line-height: 1.5;
 
 .terms {
     width: 100%;
-    text-align: center;
+    text-align: left;
+    line-height: 0.4;
     margin: 20px 0 0 0;
     box-sizing: border-box;
 }
@@ -196,9 +197,32 @@ textarea {
             <a  type="submit" name="commit" value="Submit Payment" onclick="addinvoice(false)" class="btn btn btn-warning btn-sm" id="submit_invoice" data-disable-with="Submit Payment">Add Invoice</a>
           </div>
         </div>
+        <div class="row p-3">
+        <input type="checkbox" checked class="form-check-input" id="logo">
+        <h4 class="form-check-label">Print with Logo</h4>
+      </div>
     <div class="terms">
-          <h5>Terms</h5>
-          <textarea id="terms">Payment terms: 100% Upon Delivery.</textarea>
+      <input type="checkbox" id="termscheck" checked class="inline m-2"/>
+          <h5 style="display: inline;">Terms & Conditions:</h5>
+          <div id="terms"><h6>100% upon delivery for stock items</h6>			
+            <h6>3 Years Warranty on Splicing machine</h6>
+            <h6>1 Year Warranty on Battery</h6>				        
+            <h6>If you require additional information concerning this quotation please do not hesitate to contact me.  </h6>
+            <br />
+            <p><b style="padding-right: 10px;">Name: </b>Haitham Kotb</p>
+            <p><b style="padding-right: 10px;">Title: </b>Business Development Manager</p>
+            <p><b style="padding-right: 10px;">Mob: </b>+2 01118199932</p>
+            <p><b style="padding-right: 10px;">Email: </b>haitham@koinoniaenterprises.com.au</p>
+            <p><b style="padding-right: 10px;">Web: </b>www.koinoniaenterprises.com.au</p>
+            <p><b style="padding-right: 10px;">Address: </b>12 Dr. Mazhar Ashour street -  El Nozha El Gedida</p>
+            <p><b style="padding-right: 10px;">Bank Name: </b>Credit Agricole</p>
+            <p><b style="padding-right: 10px;">Branch: </b>Heliopolis</p>
+            <p><b style="padding-right: 10px;">Account Number: </b>11018180164062</p>
+            <p><b style="padding-right: 10px;">Account by name :  </b>Koinonia Enterprises</p>
+            <p><b style="padding-right: 10px;">Swift code: </b>AGRIEGCX</p>
+            <p><b style="padding-right: 10px;">Iban Number: </b>Eg600036000100011018180164062</p>
+
+          </div>
         </div>
         
       </div>
@@ -342,13 +366,15 @@ textarea {
         
         <div class="row">
           <div class="col-xs-12">
-            <h3 class="page-header">INVOICE</h3>
+            <h3 class="page-header">TAX INVOICE</h3>
+            <p> In reference to our recent conversations in regards to your requirements, we have pleasure in offering the following Items as a solution for your evaluation.									
+              </p>
           </div>
         </div>
     
         <div class="row invoice-info">
           <div class="col-xs-4 invoice-col">
-            <label>From</label>
+            <label>Sales Person</label>
             <address>
              <p> ${document.getElementById(1).value}</p>
              <p> ${document.getElementById(2).value}</p>
@@ -357,7 +383,7 @@ textarea {
             </address>
           </div>
           <div class="col-xs-4 invoice-col">
-            <label>To</label>
+            <label>Customer Name</label>
             <address>
               <p> ${document.getElementById(5).value}</p>
               <p> ${document.getElementById(6).value}</p>
@@ -375,10 +401,7 @@ textarea {
                 <div ><label>date</label></div>
                 <div >${document.getElementById('invoice-date').value}</div>
               </div>
-              <div class="form-group">
-                <div class="col-xs-5 invoice_space"><label>Amount due</label></div>
-                <div class="col-xs-7 invoice_space bold">${document.getElementById('invoice_total').textContent}</span></div>
-              </div>
+              
             </form>
           </div>
         </div>
@@ -422,13 +445,21 @@ textarea {
         </div>
 
               <div class="terms">
-          <h5>Terms</h5>
-          <h6>${document.getElementById('terms').value}</h6>
+          <h5>Terms & Conditions:</h5>
+          ${checkterms()}
         </div>
         
       </div>
+      
    
    `
+ }
+
+ const checkterms = () => {
+  if(document.getElementById("termscheck").checked){
+    return document.getElementById('terms').innerHTML
+  }
+  else return '100% upon delivery for stock items'
  }
 
  const getTableInfo =()=>{
@@ -599,14 +630,15 @@ function printMe(query){
 body{
   font-size: 0.9rem;
 font-weight: 400;
-line-height: 1.5;
+line-height: 0.9;
 margin: 20px;
 padding: 20px;
 }
 
 .terms {
   width: 100%;
-  text-align: center;
+  text-align: left;
+  line-height: 0.4;
   margin: 20px 0 0 0;
   box-sizing: border-box;
 }
@@ -631,7 +663,17 @@ textarea {
         `);
         
         mywindow.document.write('</head><body >');
-        mywindow.document.write(`<img class="rounded float-right m-4" src="./img/logo-874789e25953a6041777bd2e4c510060d20e7ed50571ccf3814a325c6bbfa10a.jpg" />`);
+        if(document.getElementById('logo').checked){
+          mywindow.document.write(`<img class="rounded float-right m-4" src="./img/logo-874789e25953a6041777bd2e4c510060d20e7ed50571ccf3814a325c6bbfa10a.jpg" />`);
+        }
+          
+          mywindow.document.write(`<h6 class="page-header">Koinonia Enterprises</h6>
+          <h6 class="page-header">Address: 12 Dr. Mazhar Ashour street -  El Nozha El Gedida</h6>
+            <h6 class="page-header">Email : sales@koinoniaenterprises.com.au</h6>
+              <h6 class="page-header">Seller: Koinonia Enterprises</h6>
+                <h6 class="page-header">Reg File: 31143</h6>
+                  <h6 class="page-header">TAX ID: 725-817-763</h6>`);
+        
         mywindow.document.write(data);
         mywindow.document.write('</body></html>');
 
