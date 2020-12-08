@@ -23,7 +23,7 @@ line-height: 1.5;
 }
 textarea {
     width: 100%;
-    text-align: center;
+    text-align: left;
     margin: 20px 0 0 0;
     box-sizing: border-box;
 }
@@ -35,6 +35,14 @@ textarea {
 .page-header {
   width: 100%;
   text-align: center;
+}
+#textarea {
+  width: 80%;
+  min-height: 50px;
+  display: block;
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 10px;
 }
 
     </style>
@@ -204,9 +212,8 @@ textarea {
     <div class="terms">
       <input type="checkbox" id="termscheck" checked class="inline m-2"/>
           <h5 style="display: inline;">Terms & Conditions:</h5>
-          <div id="terms"><h6>100% upon delivery for stock items</h6>			
-            <h6>3 Years Warranty on Splicing machine</h6>
-            <h6>1 Year Warranty on Battery</h6>				        
+          <textarea id="textarea" class="form-control"></textarea>
+          <div id="terms">			        
             <h6>If you require additional information concerning this quotation please do not hesitate to contact me.  </h6>
             <br />
             <p><b style="padding-right: 10px;">Name: </b>Haitham Kotb</p>
@@ -455,9 +462,15 @@ textarea {
    `
  }
 
+const newline = function(input) {
+    var res = input.replace(/\n/g, "<br />")
+    console.log(res)
+    return res
+}
+
  const checkterms = () => {
   if(document.getElementById("termscheck").checked){
-    return document.getElementById('terms').innerHTML
+    return "<h5>"+newline(document.getElementById('textarea').value)+"</h5>"+document.getElementById('terms').innerHTML
   }
   else return '100% upon delivery for stock items'
  }
