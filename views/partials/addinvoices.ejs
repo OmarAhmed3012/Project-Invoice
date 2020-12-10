@@ -111,9 +111,9 @@ textarea {
               
           
               <thead>
-                  <th class="item-name">Item</th>
-                  <th class="item-name">Model</th>
-                  <th class="description">Serial Number</th>
+                  <th class="item-name">Serial</th>
+                  <th class="item-name">Name</th>
+                  <th class="description">Model</th>
                   <th class="unit">Unit Cost</th>
                   <th class="quantity">Quantity</th>
                   <th class="units">Price</th>
@@ -123,10 +123,10 @@ textarea {
               <tbody>
                 <tr class="item-row" id="row">
                   <td>
-                      <select name="pid[]" id="product" onchange="changeSerial(this)" class="form-control item_name form-control-lg" value="Item #1" required>
+                      <select name="pid[]" id="serial" onchange="changeSerial(this)" class="form-control item_name form-control-lg" value="Item #1" required>
                           
                         <% for(product of products){%>
-                          <option><%=product.name%></option>
+                          <option><%=product.serialNumber%></option>
                           <%}%>
                       </select>
                       
@@ -134,10 +134,10 @@ textarea {
                   </td>
 
                   <td>
-                    <select name="pid[]" disabled id="model" class="form-control item_name form-control-lg" value="Item #1" required>
+                    <select name="pid[]" disabled id="product" class="form-control item_name form-control-lg" value="Item #1" required>
                         
                       <% for(product of products){%>
-                        <option><%=product.model%></option>
+                        <option><%=product.name%></option>
                         <%}%>
                     </select>
                     
@@ -145,9 +145,9 @@ textarea {
                 </td>
     
                   <td>
-                      <select name="pid[]" disabled id="serial" class="form-control item_desc form-control-lg" value="Description" required>
+                      <select name="pid[]" disabled id="model" class="form-control item_desc form-control-lg" value="Description" required>
                         <% for(product of products){%>
-                        <option><%= product.serialNumber %> </option>
+                        <option><%= product.model %> </option>
                         <%}%>
                       </select>
                      
@@ -214,7 +214,7 @@ textarea {
           <h5 style="display: inline;">Terms & Conditions:</h5>
           <textarea id="textarea" class="form-control"></textarea>
           <div id="terms">			        
-            <h6>If you require additional information concerning this quotation please do not hesitate to contact me.  </h6>
+            <h6>If you require additional information, please contact:  </h6>
             <br />
             <p><b style="padding-right: 10px;">Name: </b>Haitham Kotb</p>
             <p><b style="padding-right: 10px;">Title: </b>Business Development Manager</p>
@@ -222,6 +222,7 @@ textarea {
             <p><b style="padding-right: 10px;">Email: </b>haitham@koinoniaenterprises.com.au</p>
             <p><b style="padding-right: 10px;">Web: </b>www.koinoniaenterprises.com.au</p>
             <p><b style="padding-right: 10px;">Address: </b>12 Dr. Mazhar Ashour street -  El Nozha El Gedida</p>
+            <p><b style="padding-right: 10px;">Tel: </b>02 26226760</p>
             <p><b style="padding-right: 10px;">Bank Name: </b>Credit Agricole</p>
             <p><b style="padding-right: 10px;">Branch: </b>Heliopolis</p>
             <p><b style="padding-right: 10px;">Account Number: </b>11018180164062</p>
@@ -280,10 +281,10 @@ textarea {
   div.id = 'row'
   div.innerHTML = `<tr class="item-row">
                   <td>
-                      <select name="pid[]" onchange="changeSerial(this)" id="product" class="form-control item_name form-control-lg" value="Item #1" required>
+                      <select name="pid[]" onchange="changeSerial(this)" id="serial" class="form-control item_name form-control-lg" value="Item #1" required>
                           
                         <% for(product of products){%>
-                          <option><%=product.name%></option>
+                          <option><%=product.serialNumber%></option>
                           <%}%>
                           
                       </select>
@@ -292,9 +293,9 @@ textarea {
                   </td>
 
                   <td>
-                      <select name="pid[]" id="model" disabled class="form-control item_desc form-control-lg" value="Description" required>
+                      <select name="pid[]" id="product" disabled class="form-control item_desc form-control-lg" value="Description" required>
                         <% for(product of products){%>
-                          <option><%=product.model%></option>
+                          <option><%=product.name%></option>
                           <%}%>
     
                       </select>
@@ -302,9 +303,9 @@ textarea {
                   </td>
     
                   <td>
-                      <select name="pid[]" id="serial" disabled class="form-control item_desc form-control-lg" value="Description" required>
+                      <select name="pid[]" id="model" disabled class="form-control item_desc form-control-lg" value="Description" required>
                         <% for(product of products){%>
-                          <option><%=product.serialNumber%></option>
+                          <option><%=product.model%></option>
                           <%}%>
     
                       </select>
