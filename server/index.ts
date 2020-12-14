@@ -63,8 +63,36 @@ app.get('/show',(req,res)=>{
 app.get('/stock',async(req,res)=>{
     
     const products = await productModel.find({}).sort({name:1})
+    console.log(products)
     res.render('stock',{products}) 
 })
+app.get('/overview',async(req,res)=>{
+    
+    let products: any = await productModel.find({}).sort({name:1})
+    products = convert(products)
+    console.log('products are' + JSON.stringify(products))
+    res.render('overview',{products}) 
+})
+
+
+
+const convert = (data: any) => {
+
+let names: any = []
+let mapped= []
+for (const index of data) {
+  if (!names.includes(index.name)) {
+    names.push(index.name);
+    mapped.push({ name: index.name , quantity: 0});
+  }
+  let objIndex = mapped.findIndex(i=> i.name === index.name)
+  mapped[objIndex].quantity =  index.quantity + mapped[objIndex].quantity
+}
+
+console.log(JSON.stringify(mapped))
+return mapped
+}
+    
 
 app.listen(port,()=>{
     console.log('server running');

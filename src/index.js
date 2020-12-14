@@ -68,8 +68,29 @@ app.get('/show', (req, res) => {
 });
 app.get('/stock', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const products = yield product_1.productModel.find({}).sort({ name: 1 });
+    console.log(products);
     res.render('stock', { products });
 }));
+app.get('/overview', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let products = yield product_1.productModel.find({}).sort({ name: 1 });
+    products = convert(products);
+    console.log('products are' + JSON.stringify(products));
+    res.render('overview', { products });
+}));
+const convert = (data) => {
+    let names = [];
+    let mapped = [];
+    for (const index of data) {
+        if (!names.includes(index.name)) {
+            names.push(index.name);
+            mapped.push({ name: index.name, quantity: 0 });
+        }
+        let objIndex = mapped.findIndex(i => i.name === index.name);
+        mapped[objIndex].quantity = index.quantity + mapped[objIndex].quantity;
+    }
+    console.log(JSON.stringify(mapped));
+    return mapped;
+};
 app.listen(port, () => {
     console.log('server running');
 });
